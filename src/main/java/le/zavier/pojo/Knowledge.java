@@ -1,8 +1,11 @@
 package le.zavier.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Knowledge {
+public class Knowledge implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private String chinese;

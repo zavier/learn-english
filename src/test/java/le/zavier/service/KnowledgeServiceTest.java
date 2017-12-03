@@ -26,7 +26,7 @@ public class KnowledgeServiceTest {
     @Autowired
     private IKnowledgeService iKnowledgeService;
 
-    private static Long id = 1L;
+    private static Long id = 1000000L;
 
     @Before
     public void setUp() {

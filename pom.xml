@@ -60,6 +60,12 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.25</version>
     </dependency>
+    <!-- Thymeleaf -->
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf-spring4</artifactId>
+      <version>3.0.9.RELEASE</version>
+    </dependency>
 
     <dependency>
       <groupId>mysql</groupId>
