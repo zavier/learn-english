@@ -1,6 +1,6 @@
 package le.zavier.commons;
 
-import le.zavier.commons.ResultBean.Code;
+import le.zavier.commons.ResultBean.ResultCode;
 import le.zavier.exception.CheckException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -25,7 +25,7 @@ public class ControllerAOP {
 
         try {
             result = (ResultBean<?>) pjp.proceed();
-            logger.info(pjp.getSignature() + "use time:" + (System.currentTimeMillis() - startTime));
+            logger.info(pjp.getSignature() + " use time: " + (System.currentTimeMillis() - startTime) + "ms");
         } catch (Throwable e) {
             result = handlerException(pjp, e);
         }
@@ -39,12 +39,12 @@ public class ControllerAOP {
         // 已知异常
         if (e instanceof CheckException) {
             result.setMsg(e.getLocalizedMessage());
-            result.setCode(Code.FAIL);
+            result.setCode(ResultCode.ERROR);
         } else {
             logger.error(pjp.getSignature() + " error ", e);
             //TODO 未知的异常，应该格外注意，可以发送邮件通知等
             result.setMsg(e.toString());
-            result.setCode(Code.FAIL);
+            result.setCode(ResultCode.ERROR);
         }
 
         return result;
