@@ -1,4 +1,4 @@
-package le.zavier.configs;
+package le.zavier.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -13,7 +13,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
     // 相对应的另一个应用上下文配置类（应用中的其他 Bean，如 Service、Repository）
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{RootConfig.class};
+        return new Class[]{RootConfig.class, AopConfig.class};
     }
 
     // 将 DispatcherServlet 映射到 "/"

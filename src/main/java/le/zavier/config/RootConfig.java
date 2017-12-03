@@ -1,20 +1,33 @@
-package le.zavier.configs;
+package le.zavier.config;
 
+import com.github.pagehelper.PageInterceptor;
+import java.io.IOException;
+import java.util.Properties;
 import javax.sql.DataSource;
+import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
-@Import({AopConfig.class, DBConfig.class})
-@ComponentScan(basePackages = {"le.zavier"})
+@Import({DBConfig.class})
+@ComponentScan(basePackages = {"le.zavier"}, excludeFilters = {
+    @Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class),
+    @Filter(type = FilterType.ANNOTATION, value = Controller.class)})
 @EnableTransactionManagement
 public class RootConfig {
     /**
@@ -26,10 +39,19 @@ public class RootConfig {
      * @return
      */
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
+    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
-        sessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-conf.xml"));
+        //
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        sessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mappers/*.xml"));
+        // 添加 PageHelper 插件
+        PageInterceptor pageInterceptor = new PageInterceptor();
+        Properties properties = new Properties();
+        properties.setProperty("helperDialect", "mysql");
+        pageInterceptor.setProperties(properties);
+        sessionFactoryBean.setPlugins(new Interceptor[]{pageInterceptor});
+//        sessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-conf.xml"));
         return sessionFactoryBean;
     }
 
@@ -40,10 +62,9 @@ public class RootConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
-        configurer.setBasePackage("le.zavier.**.mapper");
+        configurer.setBasePackage("le.zavier.dao");
         // 只扫描包中有 Repository 注解的类
-        configurer.setAnnotationClass(Repository.class);
-        configurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
+//        configurer.setAnnotationClass(Repository.class);
         return configurer;
     }
 

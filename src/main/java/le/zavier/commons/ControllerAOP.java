@@ -1,7 +1,7 @@
-package le.zavier.commons.aop;
+package le.zavier.commons;
 
-import le.zavier.commons.ResultBean;
-import le.zavier.commons.exception.CheckException;
+import le.zavier.commons.ResultBean.Code;
+import le.zavier.exception.CheckException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -39,12 +39,12 @@ public class ControllerAOP {
         // 已知异常
         if (e instanceof CheckException) {
             result.setMsg(e.getLocalizedMessage());
-            result.setCode(ResultBean.FAIL);
+            result.setCode(Code.FAIL);
         } else {
             logger.error(pjp.getSignature() + " error ", e);
             //TODO 未知的异常，应该格外注意，可以发送邮件通知等
             result.setMsg(e.toString());
-            result.setCode(ResultBean.FAIL);
+            result.setCode(Code.FAIL);
         }
 
         return result;

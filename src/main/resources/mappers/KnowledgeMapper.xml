@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="le.zavier.dao.KnowledgeMapper">
+  <resultMap id="BaseResultMap" type="le.zavier.pojo.Knowledge">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="chinese" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="english" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="knowledge" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, chinese, english, type, knowledge, tag, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_knowledge
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_knowledge
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="le.zavier.pojo.Knowledge">
+    insert into t_knowledge (id, chinese, english, 
+      type, knowledge, tag, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{chinese,jdbcType=VARCHAR}, #{english,jdbcType=VARCHAR}, 
+      #{type,jdbcType=SMALLINT}, #{knowledge,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="le.zavier.pojo.Knowledge">
+    insert into t_knowledge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="chinese != null">
+        chinese,
+      </if>
+      <if test="english != null">
+        english,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="knowledge != null">
+        knowledge,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="chinese != null">
+        #{chinese,jdbcType=VARCHAR},
+      </if>
+      <if test="english != null">
+        #{english,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="knowledge != null">
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="le.zavier.pojo.Knowledge">
+    update t_knowledge
+    <set>
+      <if test="chinese != null">
+        chinese = #{chinese,jdbcType=VARCHAR},
+      </if>
+      <if test="english != null">
+        english = #{english,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="knowledge != null">
+        knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="le.zavier.pojo.Knowledge">
+    update t_knowledge
+    set chinese = #{chinese,jdbcType=VARCHAR},
+      english = #{english,jdbcType=VARCHAR},
+      type = #{type,jdbcType=SMALLINT},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      update_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

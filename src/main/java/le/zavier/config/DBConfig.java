@@ -1,7 +1,6 @@
-package le.zavier.configs;
+package le.zavier.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import java.sql.SQLException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

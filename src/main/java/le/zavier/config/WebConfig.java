@@ -1,4 +1,4 @@
-package le.zavier.configs;
+package le.zavier.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("le.zavier")
+@ComponentScan("le.zavier.controller")
 public class WebConfig extends WebMvcConfigurerAdapter {
     /**
      * 配置视图解析器
