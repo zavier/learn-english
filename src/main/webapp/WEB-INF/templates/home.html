@@ -4,10 +4,32 @@
 <head>
   <meta charset="UTF-8">
   <title>This is Title</title>
+  <link rel="stylesheet" type="text/css" media="all"
+        href="../../css/gtvg.css" th:href="@{/css/gtvg1.css}" />
 </head>
 <body>
   <h1>Welcome !</h1>
   <a th:href="@{/hello}">HELLO ~~</a>
-  <p>Today is: <span th:text="${today}"></span></p>
+  <p>Today is: <span th:text="2011 + 6">13 February 2011</span></p>
+  <p data-th-text="#{home.welcome}">Welcome to our grocery store!</p>
+  Established locale country: <span th:text="${#locale.country}" th:class="class1">US</span>
+  <div th:if="${true} == false">This is Text</div>
+  <div th:text="#{true}">Helo</div>
+  <table>
+    <tr>
+      <th>NAME名字</th>
+      <th>PRICE</th>
+    </tr>
+    <tr th:each="product, index : ${products}">
+      <td th:text="${index.odd} ? 'true' : 'false'"></td>
+      <td th:text="${index.index + 1}"></td>
+      <td th:text="${product.name}">name</td>
+      <td th:text="${product.price}">price</td>
+    </tr>
+  </table>
+  <form action="" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="提交">
+  </form>
 </body>
 </html>

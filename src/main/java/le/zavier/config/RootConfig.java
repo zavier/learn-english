@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -21,6 +22,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -77,5 +81,21 @@ public class RootConfig {
     public DataSourceTransactionManager txManager(DataSource dataSource) {
         DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
         return transactionManager;
+    }
+
+    /**
+     * 文件上传
+     * @return
+     * @throws IOException
+     */
+    @Bean
+    public MultipartResolver multipartResolver() throws IOException {
+        // 使用 CommonsMultipartResolver 解析器
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        // 文件临时保存目录，非必须，默认为 Servlet 容器的临时目录
+//        multipartResolver.setUploadTempDir(new FileSystemResource("aa/bb"));
+        multipartResolver.setMaxUploadSize(2048000); // 上传文件的大小上限
+        multipartResolver.setMaxInMemorySize(0); // 当文件达到这个设置大小时，将写入到临时文件路径中
+        return multipartResolver;
     }
 }

@@ -54,6 +54,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine);
+        // 处理中文乱码问题
+        viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
     }
 
