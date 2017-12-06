@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,16 +26,27 @@ public class CsvUtil {
      * @param srcfile 文件路径
      * @return
      */
-    public List<List<String>> readCsvFile(File srcfile) {
+    public static List<List<String>> readCsvFile(File srcfile) {
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(srcfile);
+        } catch (FileNotFoundException e) {
+            logger.error("文件不存在,{}", srcfile);
+            throw new CheckException("文件不存在" + srcfile);
+        }
+        return readCsvFile(fileInputStream);
+    }
+
+    public static List<List<String>> readCsvFile(InputStream inputStream) {
         List<List<String>> lists = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(srcfile)))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 lists.add(Arrays.asList(line.split(",")));
             }
         } catch (IOException e) {
             logger.error("解析CSV文件出错", e);
-            throw new CheckException("解析CSV文件出错" + srcfile.getAbsolutePath());
+            throw new CheckException("解析CSV文件出错");
         }
         return lists;
     }
@@ -43,7 +56,7 @@ public class CsvUtil {
      * @param content 以逗号分隔的字符串List
      * @param file 要写入的文件
      */
-    public void writeCsvFile(List<String> content, File file) {
+    public static void writeCsvFile(List<String> content, File file) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (String line : content) {
                 writer.write(line + System.lineSeparator());
