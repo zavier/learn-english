@@ -1,11 +1,15 @@
 package le.zavier.dao;
 
+import java.util.List;
 import le.zavier.pojo.Knowledge;
+import org.apache.ibatis.annotations.Param;
 
 public interface KnowledgeMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(Knowledge record);
+
+    int insertBatch(@Param("knowledgeList") List<Knowledge> knowledgeList);
 
     int insertSelective(Knowledge record);
 

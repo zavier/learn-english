@@ -6,9 +6,10 @@
   <title>This is Title</title>
 </head>
 <body>
-  <h1>Welcome !</h1>
-  <form th:action="@{/upload-file}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file">
+  <h1>上传CSV文件</h1>
+  <h2 th:if="${success} == true">上传成功</h2>
+  <form th:action="@{/upload-csvfile}" method="post" enctype="multipart/form-data">
+    <input type="file" name="csvFile">
     <input type="submit" value="提交">
   </form>
 </body>

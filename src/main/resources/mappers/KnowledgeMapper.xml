@@ -26,6 +26,7 @@
     delete from t_knowledge
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="le.zavier.pojo.Knowledge">
     insert into t_knowledge (id, chinese, english, 
       type, knowledge, tag, 
@@ -34,6 +35,26 @@
       #{type,jdbcType=SMALLINT}, #{knowledge,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
       now(), now())
   </insert>
+
+  <insert id="insertBatch" parameterType="list">
+    insert into t_knowledge (id, chinese, english,
+    type, knowledge, tag,
+    create_time, update_time)
+    values
+    <foreach collection="knowledgeList" item="knowledge" index="index" separator=",">
+      (
+      #{knowledge.id},
+      #{knowledge.chinese},
+      #{knowledge.english},
+      #{knowledge.type},
+      #{knowledge.knowledge},
+      #{knowledge.tag},
+      now(),
+      now()
+      )
+    </foreach>
+  </insert>
+
   <insert id="insertSelective" parameterType="le.zavier.pojo.Knowledge">
     insert into t_knowledge
     <trim prefix="(" suffix=")" suffixOverrides=",">

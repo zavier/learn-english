@@ -55,10 +55,6 @@ public class TestController {
         return "home";
     }
 
-    @RequestMapping("/upload")
-    public void upload() {
-    }
-
     @PostMapping("upload-file")
     public String uploadFile(@RequestParam("file") MultipartFile file) {
         String originalFilename = file.getOriginalFilename();

@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import le.zavier.exception.CheckException;
 import org.slf4j.Logger;
@@ -26,7 +25,7 @@ public class CsvUtil {
      * @param srcfile 文件路径
      * @return
      */
-    public static List<List<String>> readCsvFile(File srcfile) {
+    public static CsvContent readCsvFile(File srcfile) {
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(srcfile);
@@ -37,18 +36,19 @@ public class CsvUtil {
         return readCsvFile(fileInputStream);
     }
 
-    public static List<List<String>> readCsvFile(InputStream inputStream) {
+    public static CsvContent readCsvFile(InputStream inputStream) {
+        CsvContent csvContent = new CsvContent();
         List<List<String>> lists = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             String line = null;
             while ((line = reader.readLine()) != null) {
-                lists.add(Arrays.asList(line.split(",")));
+                csvContent.addRow(line.split(","));
             }
         } catch (IOException e) {
             logger.error("解析CSV文件出错", e);
             throw new CheckException("解析CSV文件出错");
         }
-        return lists;
+        return csvContent;
     }
 
     /**
