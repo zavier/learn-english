@@ -13,6 +13,7 @@
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
+
   <sql id="Base_Column_List">
     id, chinese, english, type, knowledge, tag, create_time, update_time
   </sql>
@@ -22,6 +23,14 @@
     from t_knowledge
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectRandom" parameterType="int" resultType="le.zavier.pojo.Knowledge">
+    select chinese, english
+    from t_knowledge
+    order by rand()
+    limit #{size}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_knowledge
     where id = #{id,jdbcType=BIGINT}

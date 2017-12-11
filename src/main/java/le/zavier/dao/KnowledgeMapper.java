@@ -15,6 +15,8 @@ public interface KnowledgeMapper {
 
     Knowledge selectByPrimaryKey(Long id);
 
+    List<Knowledge> selectRandom(int size);
+
     int updateByPrimaryKeySelective(Knowledge record);
 
     int updateByPrimaryKey(Knowledge record);

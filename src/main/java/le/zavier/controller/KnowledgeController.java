@@ -45,15 +45,20 @@ public class KnowledgeController {
         throws IOException {
         boolean isCsvFile = iknowledgeService.isCsvFile(file.getOriginalFilename());
         if (!isCsvFile) {
-//            return ResultBean.createByErrorMessage("错误的文件类型");
             model.addAttribute("message", "错误的文件类型");
             return "/error";
         }
 
         CsvContent csvContent = CsvUtil.readCsvFile(file.getInputStream());
         int i = iknowledgeService.saveCsvContent(csvContent);
-//        return ResultBean.createBySuccessMessage("解析CSV文件并保存成功");
         model.addAttribute("success", true);
         return "/upload";
+    }
+
+    @GetMapping("/index")
+    public String index(@RequestParam(value = "size", defaultValue = "10") Integer size, Model model) {
+        List<Knowledge> randomData = iknowledgeService.getRandomData(size);
+        model.addAttribute("knowledges", randomData);
+        return "/index";
     }
 }

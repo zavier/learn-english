@@ -80,4 +80,9 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
         return knowledgeList;
     }
 
+    @Override
+    public List<Knowledge> getRandomData(int size) {
+        List<Knowledge> knowledges = knowledgeMapper.selectRandom(size);
+        return knowledges;
+    }
 }
