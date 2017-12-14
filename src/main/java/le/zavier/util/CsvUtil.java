@@ -20,6 +20,13 @@ import org.springframework.stereotype.Component;
 public class CsvUtil {
     private static final Logger logger = LoggerFactory.getLogger(CsvUtil.class);
 
+    public static boolean isCsvFile(String fileName) {
+        if (fileName.endsWith(".csv")) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * 读取CSV文件
      * @param srcfile 文件路径

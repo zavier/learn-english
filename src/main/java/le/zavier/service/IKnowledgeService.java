@@ -13,9 +13,11 @@ public interface IKnowledgeService {
 
     int removeKnowledgeById(long id);
 
-    boolean isCsvFile(String fileName);
-
-    int saveCsvContent(CsvContent csvContent);
+    int saveCsvContentTypeKnowledge(CsvContent csvContent);
 
     List<Knowledge> getRandomData(int size);
+
+    void saveUserAnswers(String userId, List<Knowledge> answers);
+
+    List<Knowledge> listUserAnswers(String userId);
 }

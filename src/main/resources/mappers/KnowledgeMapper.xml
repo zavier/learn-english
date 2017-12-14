@@ -24,8 +24,9 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
 
-  <select id="selectRandom" parameterType="int" resultType="le.zavier.pojo.Knowledge">
-    select chinese, english
+  <select id="selectRandom" parameterType="int" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
     from t_knowledge
     order by rand()
     limit #{size}
