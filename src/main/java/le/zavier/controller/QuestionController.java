@@ -48,7 +48,6 @@ public class QuestionController {
     public String showResult(Model model) {
         String userId = getUserId();
         List<Knowledge> knowledges = iknowledgeService.listUserAnswers(userId);
-        // TODO:后续可考虑使用缓存
         List<ExamineResultVo> examineResults = knowledges.stream().map(knowledge -> {
             Knowledge correctAnswer = iknowledgeService.getKnowledgeById(knowledge.getId());
             String correctEnglish = correctAnswer.getEnglish();

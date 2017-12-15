@@ -48,7 +48,12 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 
     @Override
     public Knowledge getKnowledgeById(long id) {
-        return knowledgeMapper.selectByPrimaryKey(id);
+        Knowledge ifPresent = knowledgeCache.getIfPresent(String.valueOf(id));
+        if (ifPresent != null) {
+            return ifPresent;
+        } else {
+            return knowledgeMapper.selectByPrimaryKey(id);
+        }
     }
 
     @Override

@@ -13,13 +13,15 @@
 <body>
   <div class="container">
     <h1 style="text-align:center;">测试</h1>
-    <form>
+    <form class="form-horizontal">
       <div class="form-group" th:each="knowledge, iterStat : ${knowledges}">
-        <label th:for="${'english' + iterStat.index}" th:text="${iterStat.index + 1 + '、' + knowledge.chinese}"></label>
-        <input type="text" class="form-control english-data" th:attr="data-id=${knowledge.id}" th:id="${'english' + iterStat.index}">
+        <label class="col-md-3 control-label" th:for="${'english' + iterStat.index}" th:text="${iterStat.index + 1 + '、' + knowledge.chinese}"></label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control english-data" th:attr="data-id=${knowledge.id}" th:id="${'english' + iterStat.index}">
+        </div>
       </div>
     </form>
-    <button class="btn btn-primary" id="submit" style="margin-bottom:20px;">提交</button>
+    <button class="btn btn-lg btn-primary btn-block" id="submit" style="text-align:center;margin-bottom:20px;">提交</button>
   </div>
 
   <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
