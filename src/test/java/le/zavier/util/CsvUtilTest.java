@@ -9,24 +9,18 @@ import org.junit.Test;
 
 public class CsvUtilTest {
     private CsvUtil util;
-    @Before
+//    @Before
     public void setUp() {
         util = new CsvUtil();
     }
 
-    @Test
+//    @Test
     public void testReadFile() {
         File file = new File("E:\\test2.csv");
-        List<List<String>> lists = util.readCsvFile(file);
-        for (List<String> list : lists) {
-            for (String str : list) {
-                System.out.print(str + "\t");
-            }
-            System.out.println();
-        }
+        CsvContent lists = util.readCsvFile(file);
     }
 
-    @Test
+//    @Test
     public void testWriteFile() {
         File file = new File("E:\\test2.csv");
         String s = "你好,测试,hello";
