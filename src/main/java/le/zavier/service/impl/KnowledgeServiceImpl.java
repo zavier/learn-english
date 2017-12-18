@@ -178,12 +178,13 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * 分页获取资源列表
      * @param pageNum 页码（从1开始）
      * @param pageSize 每页条数
+     * @param searchText 查询内容
      * @return
      */
     @Override
-    public PageInfo<Knowledge> listKnowledge(int pageNum, int pageSize) {
+    public PageInfo<Knowledge> listKnowledge(int pageNum, int pageSize, String searchText) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Knowledge> knowledges = knowledgeMapper.selectList();
+        List<Knowledge> knowledges = knowledgeMapper.selectList(searchText);
         PageInfo<Knowledge> pageResult = new PageInfo<>(knowledges);
         return pageResult;
     }

@@ -40,13 +40,16 @@ public class KnowledgeController {
      * 获取资源列表
      * @param page 页数（从1开始）
      * @param size 每页条数
+     * @param searchText 查询内容
      * @return
      */
     @PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public ResultBean list(@RequestParam(value = "page", defaultValue = "1") int page,
-                            @RequestParam(value = "size", defaultValue = "10") int size) {
-        PageInfo<Knowledge> pageResult = iknowledgeService.listKnowledge(page, size);
+                            @RequestParam(value = "size", defaultValue = "10") int size,
+                            @RequestParam(value = "search", required = false) String searchText) {
+        logger.info("查看的关键词为:{}", searchText);
+        PageInfo<Knowledge> pageResult = iknowledgeService.listKnowledge(page, size, searchText);
         return ResultBean.createBySuccess(pageResult);
     }
 

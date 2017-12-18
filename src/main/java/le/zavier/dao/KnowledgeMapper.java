@@ -19,7 +19,7 @@ public interface KnowledgeMapper {
 
     List<Knowledge> selectRandom(int size);
 
-    List<Knowledge> selectList();
+    List<Knowledge> selectList(@Param("searchText") String searchText);
 
     int updateByPrimaryKeySelective(Knowledge record);
 

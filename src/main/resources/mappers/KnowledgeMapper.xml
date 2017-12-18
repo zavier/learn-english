@@ -39,10 +39,15 @@
     limit #{size}
   </select>
 
-  <select id="selectList" resultMap="BaseResultMap">
+  <select id="selectList" parameterType="string" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from t_knowledge
+    <where>
+      <if test="searchText != null and searchText != ''">
+        and chinese like concat('%', #{searchText}, '%')
+      </if>
+    </where>
     order by id asc
   </select>
 

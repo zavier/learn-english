@@ -24,5 +24,5 @@ public interface IKnowledgeService {
 
     List<Knowledge> listUserAnswers(String userId);
 
-    PageInfo<Knowledge> listKnowledge(int pageNum, int pageSize);
+    PageInfo<Knowledge> listKnowledge(int pageNum, int pageSize, String searchText);
 }
