@@ -6,6 +6,8 @@ $(document).ready(function() {
             field: 'id',
             title: 'id',
             visible: false,
+            cardVisible: false,
+            switchable: false,
         }, {
             field: 'chinese',
             title: '中文',
@@ -14,6 +16,11 @@ $(document).ready(function() {
             field: 'english',
             title: '英文',
             align: 'center',
+        }, {
+            field: 'type',
+            title: '资源类型',
+            align: 'center',
+            formatter: getKnowledgeTypeName,
         }, {
             field: 'id',
             title: '操作',
@@ -38,6 +45,8 @@ $(document).ready(function() {
         showRefresh: true,
         showToggle: true,
         search: true,
+        toolbar: '#toolbar',
+        showColumns: true,
     });
 })
 
@@ -82,7 +91,7 @@ function showUpdateKnowledgeDialog(id, chinese, english) {
 function submitUpdateKnowledge() {
     var data = {
         id: $("#id").text(),
-        english: $("#english").val(),
+        english: $("#updateEnglish").val(),
     };
     $.ajax({
         url: $("#webpath").val() + 'update-knowledge',
@@ -115,4 +124,18 @@ function deleteKnowledgeConfirm(id) {
             }
         }
     });
+}
+
+function getKnowledgeTypeName(value, row, index) {
+    // 0-单词 1-短语 2-句子
+    switch(value) {
+        case 0:
+            return "单词";
+        case 1:
+            return "短语";
+        case 2:
+            return "句子";
+        default:
+            return "未识别的类型";
+    }
 }
