@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,6 +72,20 @@ public class KnowledgeController {
         }
         logger.error("要更新的资源不存在,id:{}", knowledge.getId());
         return ResultBean.createByErrorMessage("要更新的资源不存在");
+    }
+
+    @GetMapping(value = "delete-knowledge/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResultBean deleteKnowledgeById(@PathVariable("id") int id) {
+        boolean exist = iknowledgeService.isExistKnowledgeId(id);
+        if (exist) {
+            logger.info("要删除的资源存在, id:{}", id);
+            iknowledgeService.removeKnowledgeById(id);
+            logger.info("资源成功删除, id:{}", id);
+            return ResultBean.createBySuccessMessage("资源成功删除");
+        }
+        logger.error("要删除的资源不存在,id:{}", id);
+        return ResultBean.createByErrorMessage("删除的资源不存在");
     }
 
     @PostMapping(value = "/upload-csvfile")

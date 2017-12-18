@@ -68,7 +68,7 @@ function operateFormatter(value, row, index) {
     ].join("\',\'");
     return [
               '<button class="btn btn-info btn-sm rightSize detailBtn" type="button" onclick="showUpdateKnowledgeDialog(\'' + data +  '\')"><i class="glyphicon glyphicon-pencil"></i> 修改</button>',
-              '<button style="margin-left:5px;" class="btn btn-danger btn-sm rightSize packageBtn" type="button"><i class="glyphicon glyphicon-trash"></i> 删除</button>'
+              '<button style="margin-left:5px;" class="btn btn-danger btn-sm rightSize packageBtn" type="button" onclick="deleteKnowledgeConfirm(\'' + row.id + '\');"><i class="glyphicon glyphicon-trash"></i> 删除</button>'
           ].join('');
 }
 
@@ -98,4 +98,21 @@ function submitUpdateKnowledge() {
             console.log(JSON.stringify(res))
         }
     })
+}
+
+function deleteKnowledgeConfirm(id) {
+    $.confirm({
+        title: '注意!',
+        content: '删除后无法恢复，是否确定删除？',
+        buttons: {
+            确定: function () {
+                $.get('/delete-knowledge/' + id, function(data) {
+                     $.alert(data.msg);
+                });
+            },
+            取消: function () {
+
+            }
+        }
+    });
 }

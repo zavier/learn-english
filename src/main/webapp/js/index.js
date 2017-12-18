@@ -53,7 +53,11 @@ function checkCompleteInfoData(datas) {
             unCompleteNum++;
         }
     }
-    $("#confirmSubmitInfo").html('还有 <b>' + unCompleteNum + '</b> 道题没有完成，是否确定提交?');
+    if (unCompleteNum != 0) {
+        $("#confirmSubmitInfo").html('还有 <b>' + unCompleteNum + '</b> 道题没有完成，是否确定提交?');
+    } else {
+        $("#confirmSubmitInfo").text("题目全部完成，是够确定提交?");
+    }
     $("#myModal").modal();
     return false;
 }
