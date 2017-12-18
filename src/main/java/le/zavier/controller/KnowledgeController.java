@@ -1,27 +1,76 @@
 package le.zavier.controller;
 
+import com.github.pagehelper.PageInfo;
 import java.io.IOException;
+import java.util.Objects;
+import le.zavier.commons.ResultBean;
+import le.zavier.pojo.Knowledge;
 import le.zavier.service.IKnowledgeService;
 import le.zavier.util.CsvContent;
 import le.zavier.util.CsvUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class KnowledgeController {
+    private static final Logger logger = LoggerFactory.getLogger(KnowledgeController.class);
+
     @Autowired
     private IKnowledgeService iknowledgeService;
 
-    @GetMapping("/upload")
+    @GetMapping(value = "/upload")
     public void upload() {
     }
 
-    @PostMapping("/upload-csvfile")
+    @GetMapping(value = "/list")
+    public void list() {
+    }
+
+    /**
+     * 获取资源列表
+     * @param page 页数（从1开始）
+     * @param size 每页条数
+     * @return
+     */
+    @PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResultBean list(@RequestParam(value = "page", defaultValue = "1") int page,
+                            @RequestParam(value = "size", defaultValue = "10") int size) {
+        PageInfo<Knowledge> pageResult = iknowledgeService.listKnowledge(page, size);
+        return ResultBean.createBySuccess(pageResult);
+    }
+
+    /**
+     * 更新资源
+     * @param knowledge
+     * @return
+     */
+    @PostMapping(value = "/update-knowledge", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResultBean updateKnowledge(@RequestBody Knowledge knowledge) {
+        Objects.requireNonNull(knowledge, "参数不能为空");
+        boolean exist = iknowledgeService.isExistKnowledgeId(knowledge.getId());
+        if (exist) {
+            logger.info("要更新的资源存在, id:{}", knowledge.getId());
+            Knowledge updateRes = iknowledgeService.updateKnowledge(knowledge);
+            logger.info("更新资源成功{}", updateRes.toString());
+            return ResultBean.createBySuccess(updateRes);
+        }
+        logger.error("要更新的资源不存在,id:{}", knowledge.getId());
+        return ResultBean.createByErrorMessage("要更新的资源不存在");
+    }
+
+    @PostMapping(value = "/upload-csvfile")
     public String saveKnowledgeFromFile(@RequestParam("csvFile") MultipartFile file, Model model)
         throws IOException {
         boolean isCsvFile = CsvUtil.isCsvFile(file.getOriginalFilename());

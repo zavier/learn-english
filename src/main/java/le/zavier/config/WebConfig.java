@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -58,6 +59,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         // 处理中文乱码问题
         viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
+    }
+
+    /**
+     * 读取配置文件内容
+     * @return
+     */
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("message");
+        return messageSource;
     }
 
     /**

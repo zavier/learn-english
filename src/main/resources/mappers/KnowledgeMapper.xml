@@ -24,12 +24,26 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
 
+  <select id="countByPrimaryKey" parameterType="java.lang.Long" resultType="int">
+    select
+    count(*)
+    from t_knowledge
+    where id = #{id, jdbcType=BIGINT}
+  </select>
+
   <select id="selectRandom" parameterType="int" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from t_knowledge
     order by rand()
     limit #{size}
+  </select>
+
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_knowledge
+    order by id asc
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

@@ -1,5 +1,7 @@
 package le.zavier.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import java.util.ArrayList;
@@ -28,6 +30,11 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
     @Autowired
     private KnowledgeMapper knowledgeMapper;
 
+    /**
+     * 添加资源
+     * @param knowledge
+     * @return
+     */
     @Override
     public Knowledge addKnowledge(Knowledge knowledge) {
         int resultCount = knowledgeMapper.insert(knowledge);
@@ -37,6 +44,11 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
         throw new CheckException("插入knowledge失败，" + knowledge.toString());
     }
 
+    /**
+     * 更新资源
+     * @param knowledge
+     * @return
+     */
     @Override
     public Knowledge updateKnowledge(Knowledge knowledge) {
         int resultCount = knowledgeMapper.updateByPrimaryKeySelective(knowledge);
@@ -47,6 +59,20 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
     }
 
     @Override
+    public boolean isExistKnowledgeId(long id) {
+        int count = knowledgeMapper.countByPrimaryKey(id);
+        if (count == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 通过id获取资源
+     * @param id
+     * @return
+     */
+    @Override
     public Knowledge getKnowledgeById(long id) {
         Knowledge ifPresent = knowledgeCache.getIfPresent(String.valueOf(id));
         if (ifPresent != null) {
@@ -56,11 +82,21 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
         }
     }
 
+    /**
+     * 通过id删除资源
+     * @param id
+     * @return
+     */
     @Override
     public int removeKnowledgeById(long id) {
         return knowledgeMapper.deleteByPrimaryKey(id);
     }
 
+    /**
+     * 保存CSV文件中的资源
+     * @param csvContent
+     * @return
+     */
     @Override
     public int saveCsvContentTypeKnowledge(CsvContent csvContent) {
         List<Knowledge> knowledgeList = csvContentToKnowledge(csvContent);
@@ -68,6 +104,11 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
         return i;
     }
 
+    /**
+     * 将CSV转为资源列表
+     * @param content
+     * @return
+     */
     private List<Knowledge> csvContentToKnowledge(CsvContent content) {
         List<Knowledge> knowledgeList = new ArrayList<>(content.getTotalRows());
         for (int i = 0; i < content.getTotalRows(); i++) {
@@ -85,6 +126,11 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
         return knowledgeList;
     }
 
+    /**
+     * 随机获取 size 条资源
+     * @param size
+     * @return
+     */
     @Override
     public List<Knowledge> getRandomData(int size) {
         List<Knowledge> knowledges = knowledgeMapper.selectRandom(size);
@@ -92,18 +138,32 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
         return knowledges;
     }
 
+    /**
+     * 将资源列表添加到缓存中
+     * @param knowledgeList
+     */
     private void knowledgeListToCache(List<Knowledge> knowledgeList) {
         for (Knowledge knowledge : knowledgeList) {
             knowledgeCache.put(knowledge.getId().toString(), knowledge);
         }
     }
 
+    /**
+     * 保存用户答案列表
+     * @param userId 用户id
+     * @param answers 答案列表
+     */
     @Override
     public void saveUserAnswers(String userId, List<Knowledge> answers) {
         answerCache.put(userId, answers);
         logger.info("已添加{}的答案{}", userId, answers.toString());
     }
 
+    /**
+     * 通过用户id获取用户之前填写的答案
+     * @param userId
+     * @return
+     */
     @Override
     public List<Knowledge> listUserAnswers(String userId) {
         List<Knowledge> answers = answerCache.getIfPresent(userId);
@@ -112,5 +172,19 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
             throw new CheckException("用户" + userId + "的答案不存在");
         }
         return answers;
+    }
+
+    /**
+     * 分页获取资源列表
+     * @param pageNum 页码（从1开始）
+     * @param pageSize 每页条数
+     * @return
+     */
+    @Override
+    public PageInfo<Knowledge> listKnowledge(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Knowledge> knowledges = knowledgeMapper.selectList();
+        PageInfo<Knowledge> pageResult = new PageInfo<>(knowledges);
+        return pageResult;
     }
 }

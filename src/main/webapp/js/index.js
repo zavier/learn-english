@@ -38,7 +38,6 @@ function submitResult() {
         headers: {'Content-Type': 'application/json'},
         success: function(res) {
             if (res.code == 0) {
-                layer.msg("提交成功");
                 window.location.href = webpath + 'show-result';
             } else {
                 alert('提交失败\n' + res.msg);
@@ -54,7 +53,7 @@ function checkCompleteInfoData(datas) {
             unCompleteNum++;
         }
     }
-    $("#confirmSubmitInfo").text('还有' + unCompleteNum + '道题没有完成，是否确定提交?');
+    $("#confirmSubmitInfo").html('还有 <b>' + unCompleteNum + '</b> 道题没有完成，是否确定提交?');
     $("#myModal").modal();
     return false;
 }
