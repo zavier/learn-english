@@ -91,7 +91,7 @@ function showUpdateKnowledgeDialog(id, chinese, english) {
 function submitUpdateKnowledge() {
     var data = {
         id: $("#id").text(),
-        english: $("#updateEnglish").val(),
+        english: $("#update-english").val(),
     };
     $.ajax({
         url: $("#webpath").val() + 'update-knowledge',
@@ -101,7 +101,7 @@ function submitUpdateKnowledge() {
         contentType: 'application/json;charset=UTF-8',
         success: function(res) {
             console.log(JSON.stringify(res));
-            $("#updateDialog").modal('toggle');
+            $("#update-dialog").modal('toggle');
         },
         error: function(res) {
             console.log(JSON.stringify(res))

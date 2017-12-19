@@ -70,7 +70,7 @@ public class KnowledgeController {
      */
     @PostMapping(value = "/update-knowledge", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public ResultBean updateKnowledge(@RequestBody Knowledge knowledge) {
+    public ResultBean updateKnowledge(@RequestBody @Valid Knowledge knowledge) {
         Objects.requireNonNull(knowledge, "参数不能为空");
         boolean exist = iknowledgeService.isExistKnowledgeId(knowledge.getId());
         if (exist) {
