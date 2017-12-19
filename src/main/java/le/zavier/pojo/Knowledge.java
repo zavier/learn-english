@@ -2,14 +2,17 @@ package le.zavier.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class Knowledge implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
+    @NotEmpty
     private String chinese;
 
+    @NotEmpty
     private String english;
 
     /**

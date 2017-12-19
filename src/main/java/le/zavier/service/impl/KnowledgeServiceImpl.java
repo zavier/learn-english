@@ -37,10 +37,13 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      */
     @Override
     public Knowledge addKnowledge(Knowledge knowledge) {
+        logger.info("执行添加资源：{}", knowledge.toString());
         int resultCount = knowledgeMapper.insert(knowledge);
         if (resultCount > 0) {
+            logger.info("添加资源{}成功", knowledge.toString());
             return knowledge;
         }
+        logger.error("添加资源{}失败", knowledge.toString());
         throw new CheckException("插入knowledge失败，" + knowledge.toString());
     }
 
@@ -53,8 +56,10 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
     public Knowledge updateKnowledge(Knowledge knowledge) {
         int resultCount = knowledgeMapper.updateByPrimaryKeySelective(knowledge);
         if (resultCount > 0) {
+            logger.info("更新资源成功{}", knowledge.toString());
             return knowledge;
         }
+        logger.error("更新资源失败{}", knowledge.toString());
         throw new CheckException("更新knowledge失败，" + knowledge.toString());
     }
 

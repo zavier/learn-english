@@ -3,6 +3,7 @@ package le.zavier.controller;
 import com.github.pagehelper.PageInfo;
 import java.io.IOException;
 import java.util.Objects;
+import javax.validation.Valid;
 import le.zavier.commons.ResultBean;
 import le.zavier.pojo.Knowledge;
 import le.zavier.service.IKnowledgeService;
@@ -54,6 +55,14 @@ public class KnowledgeController {
         return ResultBean.createBySuccess(pageResult);
     }
 
+    @PostMapping(value = "/save-knowledge", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResultBean saveKnowledge(@RequestBody @Valid Knowledge knowledge) {
+        Objects.requireNonNull(knowledge, "参数不能为空");
+        iknowledgeService.addKnowledge(knowledge);
+        return ResultBean.createBySuccessMessage("保存成功");
+    }
+
     /**
      * 更新资源
      * @param knowledge
@@ -67,7 +76,6 @@ public class KnowledgeController {
         if (exist) {
             logger.info("要更新的资源存在, id:{}", knowledge.getId());
             Knowledge updateRes = iknowledgeService.updateKnowledge(knowledge);
-            logger.info("更新资源成功{}", updateRes.toString());
             return ResultBean.createBySuccess(updateRes);
         }
         logger.error("要更新的资源不存在,id:{}", knowledge.getId());

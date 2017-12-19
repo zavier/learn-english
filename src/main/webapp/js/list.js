@@ -83,9 +83,9 @@ function operateFormatter(value, row, index) {
 
 function showUpdateKnowledgeDialog(id, chinese, english) {
     $("#id").text(id);
-    $("#chinese").val(unescape(chinese));
-    $("#english").val(unescape(english));
-    $("#updateDialog").modal();
+    $("#update-chinese").val(unescape(chinese));
+    $("#update-english").val(unescape(english));
+    $("#update-dialog").modal();
 }
 
 function submitUpdateKnowledge() {
@@ -124,6 +124,33 @@ function deleteKnowledgeConfirm(id) {
             }
         }
     });
+}
+
+function showAddKnowledgeDialog() {
+    $("#add-dialog").modal();
+}
+
+function submitSaveKnowledge() {
+    //TODO:表单校验
+    var data = {
+        chinese: $("#add-chinese").val(),
+        english: $("#add-english").val(),
+        type: $("#knowledge-type").val(),
+    };
+    $.ajax({
+            url: $("#webpath").val() + 'save-knowledge',
+            method: 'POST',
+            data: JSON.stringify(data),
+            cache: false,
+            contentType: 'application/json;charset=UTF-8',
+            success: function(res) {
+                console.log(JSON.stringify(res));
+                $("#add-dialog").modal('toggle');
+            },
+            error: function(res) {
+                console.log(JSON.stringify(res))
+            }
+        })
 }
 
 function getKnowledgeTypeName(value, row, index) {
