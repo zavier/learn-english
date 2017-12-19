@@ -91,6 +91,7 @@ function showUpdateKnowledgeDialog(id, chinese, english) {
 function submitUpdateKnowledge() {
     var data = {
         id: $("#id").text(),
+        chinese: $("#update-chinese").val(),
         english: $("#update-english").val(),
     };
     $.ajax({
