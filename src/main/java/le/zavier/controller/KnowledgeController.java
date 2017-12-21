@@ -2,12 +2,9 @@ package le.zavier.controller;
 
 import com.github.pagehelper.PageInfo;
 import java.io.IOException;
-import java.util.Objects;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import le.zavier.commons.Const;
 import le.zavier.commons.ResultBean;
-import le.zavier.exception.CheckException;
 import le.zavier.pojo.Knowledge;
 import le.zavier.pojo.User;
 import le.zavier.service.IKnowledgeService;
@@ -24,11 +21,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+@RequestMapping("/knowledge")
 public class KnowledgeController {
     private static final Logger logger = LoggerFactory.getLogger(KnowledgeController.class);
 
@@ -36,11 +35,13 @@ public class KnowledgeController {
     private IKnowledgeService iknowledgeService;
 
     @GetMapping(value = "/upload")
-    public void upload() {
+    public String upload() {
+        return "/upload";
     }
 
     @GetMapping(value = "/list")
-    public void list() {
+    public String list() {
+        return "/list";
     }
 
     /**

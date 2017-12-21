@@ -4,14 +4,14 @@ function loginSubmit(event) {
     var accountOrEmail = $.trim($("#accountOrEmail").val());
     var password = $.trim($("#password").val());
     var param = generateLoginParam(accountOrEmail, password);
-    var url = $("#webpath").val() + "login";
+    var url = "/user/login";
     var ajaxParam = getAjaxJsonParamObject(url, 'POST', param);
     ajaxParam.success = function(data) {
         console.log(JSON.stringify(data));
         if (isAjaxSuccess(data)) {
-            location.href = $("#webpath").val() + '/list';
+            location.href = '/knowledge/list';
         } else {
-            logAndAlertErrorMsg('登录失败');
+            logAndAlertErrorMsg(data, '登录失败');
         }
     };
     $.ajax(ajaxParam);

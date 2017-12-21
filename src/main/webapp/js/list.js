@@ -29,7 +29,7 @@ $(document).ready(function() {
             width: '20%',
         }],
 
-        url: '/list',
+        url: '/knowledge/list',
         method: 'post',
         cache: false,
         uniqueId: 'id',
@@ -94,7 +94,7 @@ function submitUpdateKnowledge() {
         chinese: $("#update-chinese").val(),
         english: $("#update-english").val(),
     };
-    var url = $("#webpath").val() + 'update-knowledge';
+    var url = '/knowledge/update-knowledge';
     var params = getAjaxJsonParamObject(url, 'POST', data);
     params.success = function(res) {
         if (isAjaxSuccess(res)) {
@@ -113,8 +113,13 @@ function deleteKnowledgeConfirm(id) {
         content: '删除后无法恢复，是否确定删除？',
         buttons: {
             确定: function () {
-                $.get('/delete-knowledge/' + id, function(data) {
-                     $.alert(data.msg);
+                $.get('/knowledge/delete-knowledge/' + id, function(data) {
+                     if (isAjaxSuccess(data)) {
+                         alertSuccessMsg('删除成功');
+                         $('#knowledgeData').bootstrapTable('refresh');
+                     } else {
+                          logAndAlertErrorMsg(data, '删除失败');
+                     }
                 });
             },
             取消: function () {
@@ -136,7 +141,7 @@ function submitSaveKnowledge() {
         type: $("#knowledge-type").val(),
     };
 
-    var url = $("#webpath").val() + 'save-knowledge';
+    var url = '/knowledge/save-knowledge';
     var params = getAjaxJsonParamObject(url, 'POST', data);
     params.success = function(data) {
         if (isAjaxSuccess(data)) {

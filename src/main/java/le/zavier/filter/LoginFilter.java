@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import le.zavier.commons.Const;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LoginFilter implements Filter {
+    private static final Logger logger = LoggerFactory.getLogger(LoginFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -37,10 +40,11 @@ public class LoginFilter implements Filter {
         Object user = session.getAttribute(Const.CURRENT_USER);
 
         String requestURI = httpServletRequest.getRequestURI();
-        if (isStaticFile(httpServletRequest.getServletPath()) || requestURI.startsWith("/login") || user != null) {
+        logger.info("FILTER URL:{}", requestURI);
+        if (isStaticFile(httpServletRequest.getServletPath()) || requestURI.startsWith("/user/login") || user != null) {
             chain.doFilter(request, response);
         } else {
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/user/login");
         }
     }
 
