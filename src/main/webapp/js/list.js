@@ -94,20 +94,17 @@ function submitUpdateKnowledge() {
         chinese: $("#update-chinese").val(),
         english: $("#update-english").val(),
     };
-    $.ajax({
-        url: $("#webpath").val() + 'update-knowledge',
-        method: 'POST',
-        data: JSON.stringify(data),
-        cache: false,
-        contentType: 'application/json;charset=UTF-8',
-        success: function(res) {
-            console.log(JSON.stringify(res));
+    var url = $("#webpath").val() + 'update-knowledge';
+    var params = getAjaxJsonParamObject(url, 'POST', data);
+    params.success = function(res) {
+        if (isAjaxSuccess(res)) {
             $("#update-dialog").modal('toggle');
-        },
-        error: function(res) {
-            console.log(JSON.stringify(res))
+            $('#knowledgeData').bootstrapTable('refresh');
+        } else {
+            logAndAlertErrorMsg(res, '更新失败');
         }
-    })
+    }
+    $.ajax(params);
 }
 
 function deleteKnowledgeConfirm(id) {
@@ -138,20 +135,19 @@ function submitSaveKnowledge() {
         english: $("#add-english").val(),
         type: $("#knowledge-type").val(),
     };
-    $.ajax({
-            url: $("#webpath").val() + 'save-knowledge',
-            method: 'POST',
-            data: JSON.stringify(data),
-            cache: false,
-            contentType: 'application/json;charset=UTF-8',
-            success: function(res) {
-                console.log(JSON.stringify(res));
-                $("#add-dialog").modal('toggle');
-            },
-            error: function(res) {
-                console.log(JSON.stringify(res))
-            }
-        })
+
+    var url = $("#webpath").val() + 'save-knowledge';
+    var params = getAjaxJsonParamObject(url, 'POST', data);
+    params.success = function(data) {
+        if (isAjaxSuccess(data)) {
+            alertSuccessMsg('添加成功');
+            $("#add-dialog").modal('toggle');
+            $('#knowledgeData').bootstrapTable('refresh');
+        } else {
+            logAndAlertErrorMsg('添加失败');
+        }
+    }
+    $.ajax(params);
 }
 
 function getKnowledgeTypeName(value, row, index) {

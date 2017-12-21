@@ -2,8 +2,10 @@ package le.zavier.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@ToString
 public class Knowledge implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -24,17 +26,24 @@ public class Knowledge implements Serializable{
 
     private String tag;
 
+    private Long createUserId;
+
+    private Long updateUserId;
+
     private Date createTime;
 
     private Date updateTime;
 
-    public Knowledge(Long id, String chinese, String english, Short type, String knowledge, String tag, Date createTime, Date updateTime) {
+    public Knowledge(Long id, String chinese, String english, Short type, String knowledge,
+        String tag, Long createUserId, Long updateUserId, Date createTime, Date updateTime) {
         this.id = id;
         this.chinese = chinese;
         this.english = english;
         this.type = type;
         this.knowledge = knowledge;
         this.tag = tag;
+        this.createUserId = createUserId;
+        this.updateUserId = updateUserId;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -94,6 +103,22 @@ public class Knowledge implements Serializable{
         this.tag = tag == null ? null : tag.trim();
     }
 
+    public Long getCreateUserId() {
+        return createUserId;
+    }
+
+    public void setCreateUserId(Long createUserId) {
+        this.createUserId = createUserId;
+    }
+
+    public Long getUpdateUserId() {
+        return updateUserId;
+    }
+
+    public void setUpdateUserId(Long updateUserId) {
+        this.updateUserId = updateUserId;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -110,17 +135,4 @@ public class Knowledge implements Serializable{
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        return "Knowledge{" +
-            "id=" + id +
-            ", chinese='" + chinese + '\'' +
-            ", english='" + english + '\'' +
-            ", type=" + type +
-            ", knowledge='" + knowledge + '\'' +
-            ", tag='" + tag + '\'' +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-            '}';
-    }
 }

@@ -3,12 +3,17 @@ package le.zavier.controller;
 import com.github.pagehelper.PageInfo;
 import java.io.IOException;
 import java.util.Objects;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import le.zavier.commons.Const;
 import le.zavier.commons.ResultBean;
+import le.zavier.exception.CheckException;
 import le.zavier.pojo.Knowledge;
+import le.zavier.pojo.User;
 import le.zavier.service.IKnowledgeService;
 import le.zavier.util.CsvContent;
 import le.zavier.util.CsvUtil;
+import le.zavier.util.LoginUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +62,9 @@ public class KnowledgeController {
 
     @PostMapping(value = "/save-knowledge", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public ResultBean saveKnowledge(@RequestBody @Valid Knowledge knowledge) {
-        Objects.requireNonNull(knowledge, "参数不能为空");
+    public ResultBean saveKnowledge(HttpSession session, @RequestBody @Valid Knowledge knowledge) {
+        User loginUser = LoginUtil.getLoginUser(session);
+        knowledge.setCreateUserId(loginUser.getId());
         iknowledgeService.addKnowledge(knowledge);
         return ResultBean.createBySuccessMessage("保存成功");
     }
@@ -70,11 +76,12 @@ public class KnowledgeController {
      */
     @PostMapping(value = "/update-knowledge", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public ResultBean updateKnowledge(@RequestBody @Valid Knowledge knowledge) {
-        Objects.requireNonNull(knowledge, "参数不能为空");
+    public ResultBean updateKnowledge(HttpSession session, @RequestBody @Valid Knowledge knowledge) {
+        User loginUser = LoginUtil.getLoginUser(session);
         boolean exist = iknowledgeService.isExistKnowledgeId(knowledge.getId());
         if (exist) {
             logger.info("要更新的资源存在, id:{}", knowledge.getId());
+            knowledge.setUpdateUserId(loginUser.getId());
             Knowledge updateRes = iknowledgeService.updateKnowledge(knowledge);
             return ResultBean.createBySuccess(updateRes);
         }
@@ -84,12 +91,13 @@ public class KnowledgeController {
 
     @GetMapping(value = "delete-knowledge/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public ResultBean deleteKnowledgeById(@PathVariable("id") int id) {
-        boolean exist = iknowledgeService.isExistKnowledgeId(id);
-        if (exist) {
-            logger.info("要删除的资源存在, id:{}", id);
+    public ResultBean deleteKnowledgeById(HttpSession session, @PathVariable("id") int id) {
+        User loginUser = LoginUtil.getLoginUser(session);
+        Knowledge knowledge = iknowledgeService.getKnowledgeById(id);
+        if (knowledge != null) {
+            logger.info("要删除的资源存在:{}", knowledge.toString());
             iknowledgeService.removeKnowledgeById(id);
-            logger.info("资源成功删除, id:{}", id);
+            logger.info("资源成功删除:{}, 删除人:{}", knowledge.toString(), loginUser.toString());
             return ResultBean.createBySuccessMessage("资源成功删除");
         }
         logger.error("要删除的资源不存在,id:{}", id);

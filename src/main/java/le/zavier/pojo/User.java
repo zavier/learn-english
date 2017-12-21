@@ -1,9 +1,14 @@
 package le.zavier.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
+import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class User {
+@ToString
+public class User implements Serializable{
+    private static final Long serialVersionUID = 1L;
+
     private Long id;
 
     private String account;
@@ -100,17 +105,4 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-            "id=" + id +
-            ", account='" + account + '\'' +
-            ", email='" + email + '\'' +
-            ", nickname='" + nickname + '\'' +
-            ", password='" + password + '\'' +
-            ", status=" + status +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-            '}';
-    }
 }

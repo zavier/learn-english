@@ -1,6 +1,7 @@
 package le.zavier.config;
 
 import javax.servlet.Filter;
+import le.zavier.filter.LoginFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -31,8 +32,8 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
      */
     @Override
     protected Filter[] getServletFilters() {
-        CharacterEncodingFilter filter = new CharacterEncodingFilter("UTF-8",
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter("UTF-8",
             true);
-        return new Filter[]{filter};
+        return new Filter[]{characterEncodingFilter, new LoginFilter()};
     }
 }

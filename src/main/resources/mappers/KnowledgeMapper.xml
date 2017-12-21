@@ -9,13 +9,15 @@
       <arg column="type" javaType="java.lang.Short" jdbcType="SMALLINT" />
       <arg column="knowledge" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="tag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_user_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="update_user_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
 
   <sql id="Knowledge_Column_List">
-    id, chinese, english, type, knowledge, tag, create_time, update_time
+    id, chinese, english, type, knowledge, tag, create_user_id, update_user_id, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="KnowledgeResultMap">
     select 
@@ -58,16 +60,19 @@
 
   <insert id="insert" parameterType="le.zavier.pojo.Knowledge">
     insert into t_knowledge (id, chinese, english, 
-      type, knowledge, tag, 
+      type, knowledge, tag,
+      create_user_id, update_user_id,
       create_time, update_time)
     values (#{id,jdbcType=BIGINT}, #{chinese,jdbcType=VARCHAR}, #{english,jdbcType=VARCHAR}, 
-      #{type,jdbcType=SMALLINT}, #{knowledge,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{type,jdbcType=SMALLINT}, #{knowledge,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR},
+      #{createUserId, jdbcType=BIGINT}, #{updateUserId, jdbcType=BIGINT},
       now(), now())
   </insert>
 
   <insert id="insertBatch" parameterType="list">
     insert into t_knowledge (id, chinese, english,
     type, knowledge, tag,
+    create_user_id, update_user_id,
     create_time, update_time)
     values
     <foreach collection="knowledgeList" item="knowledge" index="index" separator=",">
@@ -78,6 +83,8 @@
       #{knowledge.type},
       #{knowledge.knowledge},
       #{knowledge.tag},
+      #{knowledge.createUserId},
+      #{knowledge.createUserId},
       now(),
       now()
       )
@@ -105,6 +112,12 @@
       <if test="tag != null">
         tag,
       </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
       <if test="createTime != null">
         create_time,
       </if>
@@ -130,6 +143,12 @@
       </if>
       <if test="tag != null">
         #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId, jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId, jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
         now(),
@@ -157,6 +176,9 @@
       <if test="tag != null">
         tag = #{tag,jdbcType=VARCHAR},
       </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId, jdbcType=BIGINT},
+      </if>
       <if test="updateTime != null">
         update_time = now(),
       </if>
@@ -170,6 +192,7 @@
       type = #{type,jdbcType=SMALLINT},
       knowledge = #{knowledge,jdbcType=VARCHAR},
       tag = #{tag,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId, jdbcType=BIGINT},
       update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
