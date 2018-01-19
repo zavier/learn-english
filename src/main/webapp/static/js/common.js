@@ -50,8 +50,7 @@ function alertErrorMsg(msg) {
 }
 
 function logout() {
-    // TODO:临时测试用
-    $.ajax('/user/logout', function(data) {
-
-    } )
+    $.get('/user/logout', function(data) {
+        location.href = '/user/login';
+    })
 }

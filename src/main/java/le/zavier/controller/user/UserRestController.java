@@ -1,5 +1,6 @@
 package le.zavier.controller.user;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import le.zavier.commons.ResultBean;
@@ -22,15 +23,17 @@ public class UserRestController {
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
+    private LoginUtil loginUtil;
+    @Autowired
     private UserService userService;
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResultBean login(HttpSession session, @RequestBody @Valid User user) {
+    public ResultBean login(HttpServletRequest request, @RequestBody @Valid User user) {
         User loginUser = userService.login(user);
         if (loginUser == null) {
             return ResultBean.createByErrorMessage("用户不存在或密码错误");
         } else {
-            LoginUtil.saveLoginStatus(session, loginUser);
+            loginUtil.saveLoginStatus(request, loginUser);
             return ResultBean.createBySuccess(loginUser);
         }
     }
