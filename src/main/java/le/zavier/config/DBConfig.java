@@ -1,23 +1,29 @@
 package le.zavier.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
+/**
+ * 数据库配置类
+ *
+ */
 @Configuration
+@PropertySource("classpath:database.properties")
 public class DBConfig {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/learn_english??useUnicode=true&characterEncoding=UTF-8";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
+    @Autowired
+    private Environment env;
 
     @Bean(initMethod="init", destroyMethod="close")
     public DruidDataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(URL);
-        dataSource.setUsername(USERNAME);
-        dataSource.setPassword(PASSWORD);
+        dataSource.setUrl(env.getProperty("db.url"));
+        dataSource.setUsername(env.getProperty("db.username"));
+        dataSource.setPassword(env.getProperty("db.password"));
 
         // 配置 druid 监听
 //        try {

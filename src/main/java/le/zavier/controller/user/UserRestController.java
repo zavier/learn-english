@@ -1,57 +1,47 @@
-package le.zavier.controller;
+package le.zavier.controller.user;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import le.zavier.commons.Const;
 import le.zavier.commons.ResultBean;
 import le.zavier.pojo.User;
-import le.zavier.service.IUserService;
+import le.zavier.service.UserService;
 import le.zavier.util.LoginUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/user")
-public class UserController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+public class UserRestController {
+    private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
-    private IUserService iUserService;
-
-    @GetMapping(value = "/login")
-    public String login() {
-        return "/login";
-    }
+    private UserService userService;
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
     public ResultBean login(HttpSession session, @RequestBody @Valid User user) {
-        User login = iUserService.login(user);
-        if (login == null) {
+        User loginUser = userService.login(user);
+        if (loginUser == null) {
             return ResultBean.createByErrorMessage("用户不存在或密码错误");
         } else {
-            session.setAttribute(Const.CURRENT_USER, login);
-            return ResultBean.createBySuccess(login);
+            LoginUtil.saveLoginStatus(session, loginUser);
+            return ResultBean.createBySuccess(loginUser);
         }
     }
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
     public ResultBean register(@RequestBody @Valid User user) {
-        iUserService.register(user);
+        userService.register(user);
         return ResultBean.createBySuccessMessage("用户注册成功");
     }
 
     @GetMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
     public ResultBean logout(HttpSession session) {
         LoginUtil.logout(session);
         return ResultBean.createBySuccessMessage("退出成功");

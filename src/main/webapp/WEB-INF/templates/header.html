@@ -8,8 +8,8 @@
   <title>Learning English</title>
 
   <!-- Bootstrap -->
-  <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-  <link th:href="@{/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+  <link th:href="@{/static/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/static/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-default" id="header">
@@ -28,8 +28,8 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class=""><a href="/list">数据管理 </a></li>
-          <li><a href="/index">测试题</a></li>
+          <li class=""><a th:href="@{/knowledge/list}">数据管理 </a></li>
+          <li><a th:href="@{/examination/index}">测试题</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -69,9 +69,9 @@
   </nav>
 
 
-<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/bootstrap-table/bootstrap-table.js}"></script>
-<script th:src="@{/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
-<script th:src="@{/js/list.js}"></script>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/bootstrap-table/bootstrap-table.js}"></script>
+<script th:src="@{/static/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script th:src="@{/static/js/list.js}"></script>
 </body>

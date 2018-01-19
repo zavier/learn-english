@@ -1,4 +1,4 @@
-package le.zavier.service.impl;
+package le.zavier.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -10,21 +10,20 @@ import java.util.concurrent.TimeUnit;
 import le.zavier.dao.KnowledgeMapper;
 import le.zavier.exception.CheckException;
 import le.zavier.pojo.Knowledge;
-import le.zavier.service.IKnowledgeService;
 import le.zavier.util.CsvContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("iKnowledgeService")
-public class KnowledgeServiceImpl implements IKnowledgeService {
-    private static final Logger logger = LoggerFactory.getLogger(KnowledgeServiceImpl.class);
+@Service
+public class KnowledgeService {
+    private static final Logger logger = LoggerFactory.getLogger(KnowledgeService.class);
 
     public static Cache<String, Knowledge> knowledgeCache = CacheBuilder.newBuilder()
         .expireAfterAccess(30, TimeUnit.MINUTES).maximumSize(100).build();
 
-    public static Cache<String, List<Knowledge>> answerCache = CacheBuilder.newBuilder()
+    public static Cache<Long, List<Knowledge>> answerCache = CacheBuilder.newBuilder()
         .expireAfterAccess(10, TimeUnit.MINUTES).maximumSize(100).build();
 
     @Autowired
@@ -35,7 +34,6 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * @param knowledge
      * @return
      */
-    @Override
     public Knowledge addKnowledge(Knowledge knowledge) {
         logger.info("执行添加资源：{}", knowledge.toString());
         int resultCount = knowledgeMapper.insert(knowledge);
@@ -52,7 +50,6 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * @param knowledge
      * @return
      */
-    @Override
     public Knowledge updateKnowledge(Knowledge knowledge) {
         int resultCount = knowledgeMapper.updateByPrimaryKeySelective(knowledge);
         if (resultCount > 0) {
@@ -63,7 +60,6 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
         throw new CheckException("更新knowledge失败，" + knowledge.toString());
     }
 
-    @Override
     public boolean isExistKnowledgeId(long id) {
         int count = knowledgeMapper.countByPrimaryKey(id);
         if (count == 1) {
@@ -77,7 +73,6 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * @param id
      * @return
      */
-    @Override
     public Knowledge getKnowledgeById(long id) {
         Knowledge ifPresent = knowledgeCache.getIfPresent(String.valueOf(id));
         if (ifPresent != null) {
@@ -92,7 +87,6 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * @param id
      * @return
      */
-    @Override
     public int removeKnowledgeById(long id) {
         return knowledgeMapper.deleteByPrimaryKey(id);
     }
@@ -102,7 +96,6 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * @param csvContent
      * @return
      */
-    @Override
     public int saveCsvContentTypeKnowledge(CsvContent csvContent) {
         List<Knowledge> knowledgeList = csvContentToKnowledge(csvContent);
         int i = knowledgeMapper.insertBatch(knowledgeList);
@@ -136,7 +129,6 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * @param size
      * @return
      */
-    @Override
     public List<Knowledge> getRandomData(int size) {
         List<Knowledge> knowledges = knowledgeMapper.selectRandom(size);
         knowledgeListToCache(knowledges);
@@ -158,19 +150,17 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * @param userId 用户id
      * @param answers 答案列表
      */
-    @Override
-    public void saveUserAnswers(String userId, List<Knowledge> answers) {
+    public void saveUserAnswers(long userId, List<Knowledge> answers) {
         answerCache.put(userId, answers);
         logger.info("已添加{}的答案{}", userId, answers.toString());
     }
 
     /**
      * 通过用户id获取用户之前填写的答案
-     * @param userId
+     * @param userId 用户id
      * @return
      */
-    @Override
-    public List<Knowledge> listUserAnswers(String userId) {
+    public List<Knowledge> listUserAnswers(long userId) {
         List<Knowledge> answers = answerCache.getIfPresent(userId);
         if (answers == null) {
             logger.error("用户{}的答案不错在", userId);
@@ -186,7 +176,6 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
      * @param searchText 查询内容
      * @return
      */
-    @Override
     public PageInfo<Knowledge> listKnowledge(int pageNum, int pageSize, String searchText) {
         PageHelper.startPage(pageNum, pageSize);
         List<Knowledge> knowledges = knowledgeMapper.selectList(searchText);

@@ -1,4 +1,4 @@
-package le.zavier.pojo;
+package le.zavier.vo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
-public class Knowledge implements Serializable{
+public class KnowledgeVo implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -35,5 +35,4 @@ public class Knowledge implements Serializable{
     private Date createTime;
 
     private Date updateTime;
-
 }

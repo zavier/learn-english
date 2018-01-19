@@ -1,6 +1,10 @@
 package le.zavier.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,47 +13,71 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import le.zavier.commons.Const;
+import le.zavier.commons.ResultBean;
+import le.zavier.util.LoginUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 登录过滤器
+ *
+ */
 public class LoginFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(LoginFilter.class);
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    /**
+     * 不需要登录的url的开头部分
+     */
+    private List<String> noNeedLoginUrlStarts = new ArrayList<>();
 
+    public void setNoNeedLoginUrlStarts(List<String> noNeedLoginUrlStarts) {
+        this.noNeedLoginUrlStarts = noNeedLoginUrlStarts;
     }
 
-    private boolean isStaticFile(String servletPath) {
-        if (servletPath.endsWith(".js") || servletPath.endsWith(".css") || servletPath.endsWith(".eot")
-            || servletPath.endsWith(".svg") || servletPath.endsWith("ttf") || servletPath.endsWith("woff")
-            || servletPath.endsWith(".woff2")) {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {}
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+        throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+        String requestURI = httpRequest.getRequestURI();
+        if (isNeedLoginUri(requestURI) && isNotLogin(httpRequest)) {
+            if (isAjaxRequest(httpRequest)) {
+                returnNoLoginInfo(httpResponse);
+            } else {
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login");
+            }
+        } else {
+            chain.doFilter(request, response);
+        }
+    }
+
+    private void returnNoLoginInfo(HttpServletResponse httpResponse) throws IOException {
+        PrintWriter writer = httpResponse.getWriter();
+        writer.write(new ObjectMapper().writeValueAsString(ResultBean.createByNotLogin()));
+        writer.flush();
+    }
+
+    private boolean isNotLogin(HttpServletRequest httpRequest) {
+        return ! LoginUtil.isLogin(httpRequest.getSession());
+    }
+
+    private boolean isNeedLoginUri(String uri) {
+        boolean needLogin = noNeedLoginUrlStarts.stream().noneMatch(uri::startsWith);
+        return needLogin ? true : false;
+    }
+
+    private boolean isAjaxRequest(HttpServletRequest httpRequest) {
+        String header = httpRequest.getHeader("X-Requested-With");
+        if ("XMLHttpRequest".equalsIgnoreCase(header)) {
             return true;
         }
         return false;
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-        throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        HttpSession session = httpServletRequest.getSession();
-        Object user = session.getAttribute(Const.CURRENT_USER);
-
-        String requestURI = httpServletRequest.getRequestURI();
-        logger.info("FILTER URL:{}", requestURI);
-        if (isStaticFile(httpServletRequest.getServletPath()) || requestURI.startsWith("/user/login") || user != null) {
-            chain.doFilter(request, response);
-        } else {
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/user/login");
-        }
-    }
-
-    @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 }

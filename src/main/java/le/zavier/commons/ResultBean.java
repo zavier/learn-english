@@ -3,6 +3,11 @@ package le.zavier.commons;
 import java.io.Serializable;
 import lombok.Data;
 
+/**
+ * Controller 层统一返回实体类
+ * @param <T> 返回内容的数据类型
+ *
+ */
 @Data
 public class ResultBean<T> implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -10,6 +15,7 @@ public class ResultBean<T> implements Serializable {
     public interface ResultCode {
         int SUCCESS = 0;
         int ERROR = 1;
+        int NOT_LOGIN = 2;
     }
 
     private int code = ResultCode.SUCCESS;
@@ -71,5 +77,13 @@ public class ResultBean<T> implements Serializable {
 
     public static <T> ResultBean<T> createByErrorMessage(String errorMessage){
         return new ResultBean<T>(ResultCode.ERROR,errorMessage);
+    }
+
+    public static <T> ResultBean<T> createByNotLogin() {
+        return new ResultBean<>(ResultCode.NOT_LOGIN, "Not Login");
+    }
+
+    public static <T> ResultBean<T> createByNotLoginMessage(String message) {
+        return new ResultBean<>(ResultCode.NOT_LOGIN, message);
     }
 }

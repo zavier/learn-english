@@ -38,7 +38,7 @@ function submitResult() {
         headers: {'Content-Type': 'application/json'},
         success: function(res) {
             if (res.code == 0) {
-                window.location.href = webpath + 'show-result';
+                window.location.href = webpath + 'examination/show-result';
             } else {
                 alert('提交失败\n' + res.msg);
             }

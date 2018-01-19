@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <title th:text="#{home.title}"></title>
   <link rel="stylesheet" type="text/css" media="all"
-        href="../../css/gtvg.css" th:href="@{/css/gtvg1.css}" />
+        href="../../css/gtvg.css" th:href="@{/static/css/gtvg1.css}" />
 </head>
 <body>
   <h1>Welcome !</h1>
-  <a th:href="@{/hello}">HELLO ~~</a>
+  <a th:href="@{/static/hello}">HELLO ~~</a>
   <p>Today is: <span th:text="2011 + 6">13 February 2011</span></p>
   <p data-th-text="#{home.welcome}">Welcome to our grocery store!</p>
   Established locale country: <span th:text="${#locale.country}" th:class="class1">US</span>

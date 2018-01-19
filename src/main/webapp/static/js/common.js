@@ -56,7 +56,7 @@ function logAndAlertErrorMsg(data, msg) {
 
 function logout() {
     // TODO:临时测试用
-    $.ajax('/logout', function(data) {
+    $.ajax('/user/logout', function(data) {
 
     } )
 }
