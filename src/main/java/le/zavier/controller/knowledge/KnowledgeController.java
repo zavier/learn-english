@@ -30,7 +30,7 @@ public class KnowledgeController {
 
     @GetMapping(value = "/list")
     public String list() {
-        return "/list";
+        return "/knowledge/list";
     }
 
 

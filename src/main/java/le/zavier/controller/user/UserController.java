@@ -17,7 +17,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "/login")
-    public String login() {
-        return "/login";
-    }
+    public void login() {}
+
+    @GetMapping(value = "/registry")
+    public void registry() {}
 }

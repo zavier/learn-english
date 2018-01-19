@@ -49,7 +49,7 @@
       nickname, password, status,
       create_time, update_time)
     values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
-      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{nickname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
       now(), now())
   </insert>
   <insert id="insertSelective" parameterType="le.zavier.pojo.User">

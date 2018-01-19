@@ -1,16 +1,3 @@
-$(document).ready(function() {
-    initWebpath();
-})
-
-var webpath;
-function initWebpath() {
-    if (location.port == '') { // 默认80端口
-        webpath = `${location.protocol}//${location.host}/`
-    } else {
-        webpath = `${location.protocol}//${location.host}:${location.port}/`
-    }
-}
-
 function checkData() {
     var data = getData();
     checkCompleteInfoData(data);

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="#{home.title}"></title>
+
+  <link th:href="@{/static/jquery-confirm/jquery-confirm.css}" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link th:href="@{/static/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/static/bootstrap-select/css/bootstrap-select.css}" rel="stylesheet">
+  <link th:href="@{/static/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+
+  <link th:href="@{/static/css/signin.css}" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container">
+
+    <form class="form-signin">
+      <h2 class="form-signin-heading">注册</h2>
+      <label for="account" class="sr-only">账号</label>
+      <input type="text" id="account" class="form-control" placeholder="账号" required autofocus>
+      <label for="email" class="sr-only">Email address</label>
+      <input type="text" id="email" class="form-control" placeholder="邮箱" required >
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" id="password" class="form-control" placeholder="密码" required>
+      <button onclick="registry();" class="btn btn-primary btn-lg btn-block" type="button">提交</button>
+    </form>
+
+  </div> <!-- /container -->
+
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/jquery-confirm/jquery-confirm.js}"></script>
+<script th:src="@{/static/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/bootstrap-select/js/bootstrap-select.js}"></script>
+<script th:src="@{/static/bootstrap-table/bootstrap-table.js}"></script>
+<script th:src="@{/static/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script th:src="@{/static/jquery-validation/jquery.validate.js}"></script>
+<script th:src="@{/static/js/common.js}"></script>
+<script th:src="@{/static/js/user/registry.js}"></script>
+</body>

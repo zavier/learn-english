@@ -28,7 +28,7 @@ public class ExaminationController {
     public String index(@RequestParam(value = "size", defaultValue = "10") Integer size, Model model) {
         List<Knowledge> randomData = knowledgeService.getRandomData(size);
         model.addAttribute("knowledges", randomData);
-        return "/index";
+        return "/examination/index";
     }
 
     @GetMapping("show-result")
@@ -46,6 +46,6 @@ public class ExaminationController {
             return examineResultVo;
         }).collect(Collectors.toList());
         model.addAttribute("examineResults", examineResults);
-        return "/examineResult";
+        return "/examination/examineResult";
     }
 }
