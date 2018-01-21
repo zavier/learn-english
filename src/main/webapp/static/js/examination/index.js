@@ -18,14 +18,14 @@ function getData() {
 function submitResult() {
     var data = getData();
     $.ajax({
-        url: webpath + 'examination/upload-answer',
+        url: '/examination/upload-answer',
         type: 'POST',
         dataType: 'json',
         data: JSON.stringify(data),
         headers: {'Content-Type': 'application/json'},
         success: function(res) {
             if (res.code == 0) {
-                window.location.href = webpath + 'examination/show-result';
+                window.location.href = '/examination/show-result';
             } else {
                 alert('提交失败\n' + res.msg);
             }
