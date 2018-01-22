@@ -19,13 +19,13 @@
 
   <div class="container">
 
-    <form class="form-signin">
+    <form id="loginForm" class="form-signin">
       <h2 class="form-signin-heading">请登录</h2>
       <label for="accountOrEmail" class="sr-only">Email address</label>
       <input type="text" id="accountOrEmail" class="form-control" placeholder="用户名或邮箱" required autofocus>
       <label for="password" class="sr-only">Password</label>
       <input type="password" id="password" class="form-control" placeholder="密码" required>
-      <button onclick="loginSubmit(event)" class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+      <button onclick="loginSubmit()" class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
       <button onclick="javascript:location.href='/user/registry'" class="btn btn-lg btn-block" type="button">注册</button>
     </form>
 
@@ -39,6 +39,7 @@
   <script th:src="@{/static/bootstrap-table/bootstrap-table.js}"></script>
   <script th:src="@{/static/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
   <script th:src="@{/static/jquery-validation/jquery.validate.js}"></script>
+  <script th:src="@{/static/jquery-validation/localization/messages_zh.js}"></script>
   <script th:src="@{/static/js/common.js}"></script>
   <script th:src="@{/static/js/user/login.js}"></script>
 </body>
