@@ -55,11 +55,19 @@
     select
     <include refid="Knowledge_Column_List"/>
     from t_knowledge
-    where create_user_id = #{userId}
+    where create_user_id = #{createUserId}
     <if test="searchText != null and searchText != ''">
       and chinese like concat('%', #{searchText}, '%')
     </if>
     order by id asc
+  </select>
+
+  <select id="countByChineseAndCreateUser" resultType="int">
+    select
+    count(*)
+    from t_knowledge
+    where chinese = #{chinese}
+    and create_user_id = #{createUserId}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

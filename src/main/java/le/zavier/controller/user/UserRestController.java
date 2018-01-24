@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import le.zavier.commons.ResultBean;
 import le.zavier.pojo.User;
 import le.zavier.service.UserService;
-import le.zavier.util.LoginUtil;
+import le.zavier.commons.LoginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class UserRestController {
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
-    private LoginUtil loginUtil;
+    private LoginManager loginManager;
     @Autowired
     private UserService userService;
 
@@ -33,7 +33,7 @@ public class UserRestController {
         if (loginUser == null) {
             return ResultBean.createByErrorMessage("用户不存在或密码错误");
         } else {
-            loginUtil.saveLoginStatus(request, loginUser);
+            loginManager.saveLoginStatus(request, loginUser);
             return ResultBean.createBySuccess(loginUser);
         }
     }
@@ -46,7 +46,7 @@ public class UserRestController {
 
     @GetMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResultBean logout(HttpSession session) {
-        LoginUtil.logout(session);
+        LoginManager.logout(session);
         return ResultBean.createBySuccessMessage("退出成功");
     }
 }

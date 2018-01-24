@@ -1,4 +1,4 @@
-package le.zavier.util;
+package le.zavier.commons;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
  * @author zhengwei
  */
 @Component
-public class LoginUtil {
-    private static final Logger logger = LoggerFactory.getLogger(LoginUtil.class);
+public class LoginManager {
+    private static final Logger logger = LoggerFactory.getLogger(LoginManager.class);
 
     @Autowired
     private LoginLogService loginLogService;

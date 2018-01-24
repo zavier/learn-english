@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import le.zavier.pojo.Knowledge;
 import le.zavier.service.KnowledgeService;
-import le.zavier.util.LoginUtil;
+import le.zavier.commons.LoginManager;
 import le.zavier.vo.ExamineResultVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class ExaminationController {
 
     @GetMapping("show-result")
     public String showResult(HttpSession session, Model model) {
-        long userId = LoginUtil.getLoginUser(session).getId();
+        long userId = LoginManager.getLoginUser(session).getId();
         List<Knowledge> knowledges = knowledgeService.listUserAnswers(userId);
         List<ExamineResultVo> examineResults = knowledges.stream().map(knowledge -> {
             Knowledge correctAnswer = knowledgeService.getKnowledgeById(knowledge.getId());

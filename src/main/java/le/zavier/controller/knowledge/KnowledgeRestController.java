@@ -8,7 +8,7 @@ import le.zavier.commons.ResultBean;
 import le.zavier.pojo.Knowledge;
 import le.zavier.pojo.User;
 import le.zavier.service.KnowledgeService;
-import le.zavier.util.LoginUtil;
+import le.zavier.commons.LoginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,14 +61,14 @@ public class KnowledgeRestController {
         @RequestParam(value = "search", required = false) String searchText) {
         logger.info("查看的关键词为:{}", searchText);
         PageSearchParam pageSearchParam = new PageSearchParam(page, size, searchText);
-        User user = LoginUtil.getLoginUser(session);
+        User user = LoginManager.getLoginUser(session);
         PageInfo<Knowledge> pageResult = knowledgeService.listUserCreateKnowledge(user.getId(), pageSearchParam);
         return ResultBean.createBySuccess(pageResult);
     }
 
     @PostMapping(value = "/save-knowledge", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResultBean saveKnowledge(HttpSession session, @RequestBody @Valid Knowledge knowledge) {
-        User loginUser = LoginUtil.getLoginUser(session);
+        User loginUser = LoginManager.getLoginUser(session);
         knowledge.setCreateUserId(loginUser.getId());
         knowledgeService.addKnowledge(knowledge);
         return ResultBean.createBySuccessMessage("保存成功");
@@ -81,7 +81,7 @@ public class KnowledgeRestController {
      */
     @PostMapping(value = "/update-knowledge", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResultBean updateKnowledge(HttpSession session, @RequestBody @Valid Knowledge knowledge) {
-        User loginUser = LoginUtil.getLoginUser(session);
+        User loginUser = LoginManager.getLoginUser(session);
         boolean exist = knowledgeService.isExistKnowledgeId(knowledge.getId());
         if (exist) {
             logger.info("要更新的资源存在, id:{}", knowledge.getId());
@@ -95,7 +95,7 @@ public class KnowledgeRestController {
 
     @GetMapping(value = "delete-knowledge/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResultBean deleteKnowledgeById(HttpSession session, @PathVariable("id") int id) {
-        User loginUser = LoginUtil.getLoginUser(session);
+        User loginUser = LoginManager.getLoginUser(session);
         Knowledge knowledge = knowledgeService.getKnowledgeById(id);
         if (knowledge != null) {
             logger.info("要删除的资源存在:{}", knowledge.toString());

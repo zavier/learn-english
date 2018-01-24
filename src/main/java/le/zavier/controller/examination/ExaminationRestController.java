@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import le.zavier.commons.ResultBean;
 import le.zavier.pojo.Knowledge;
 import le.zavier.service.KnowledgeService;
-import le.zavier.util.LoginUtil;
+import le.zavier.commons.LoginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class ExaminationRestController {
 
     @PostMapping(value = "upload-answer", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResultBean<String> test(HttpSession session, @RequestBody List<Knowledge> knowledges) {
-        long userId = LoginUtil.getLoginUser(session).getId();
+        long userId = LoginManager.getLoginUser(session).getId();
         knowledgeService.saveUserAnswers(userId, knowledges);
         return ResultBean.createBySuccessMessage("保存" + userId + "的答案成功");
     }

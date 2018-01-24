@@ -21,10 +21,12 @@ public interface KnowledgeMapper {
 
     List<Knowledge> selectList(@Param("searchText") String searchText);
 
-    List<Knowledge> selectUserCreateList(@Param("userId") Long userId,
+    List<Knowledge> selectUserCreateList(@Param("createUserId") Long createUserId,
         @Param("searchText") String searchText);
 
     int updateByPrimaryKeySelective(Knowledge record);
+
+    int countByChineseAndCreateUser(@Param("createUserId") Long createUserId, @Param("chinese") String chinese);
 
     int updateByPrimaryKey(Knowledge record);
 }

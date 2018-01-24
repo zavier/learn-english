@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Length;
 
 @Data
 @NoArgsConstructor
@@ -13,10 +13,10 @@ public class Knowledge implements Serializable{
 
     private Long id;
 
-    @NotEmpty
+    @Length(min = 1, max = 200)
     private String chinese;
 
-    @NotEmpty
+    @Length(min = 1, max = 200)
     private String english;
 
     /**

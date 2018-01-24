@@ -1,4 +1,7 @@
 function trim_escape(str) {
+    if (str == null || str == undefined) {
+        return "";
+    }
     var trimStr = str.replace(/(^\s*)|(\s*$)/g, "");
     return escape(trimStr);
 }
@@ -13,7 +16,7 @@ function getAjaxJsonParamObject(url, method, data) {
         contentType: 'application/json;charset=UTF-8',
         error: function(data) {
             console.error(JSON.stringify(data));
-            alertErrorMsg('操作失败');
+            alertErrorMsg(data.msg);
         }
     };
     return ajaxData;
@@ -39,7 +42,7 @@ function alertSuccessMsg(msg) {
 
 function logAndAlertErrorMsg(data, msg) {
     console.error(JSON.stringify(data));
-    alertErrorMsg(msg);
+    alertErrorMsg(msg + ":" + data.msg);
 }
 
 function alertErrorMsg(msg) {

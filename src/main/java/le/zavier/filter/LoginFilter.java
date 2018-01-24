@@ -14,7 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import le.zavier.commons.ResultBean;
-import le.zavier.util.LoginUtil;
+import le.zavier.commons.LoginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +62,7 @@ public class LoginFilter implements Filter {
     }
 
     private boolean isNotLogin(HttpServletRequest httpRequest) {
-        return ! LoginUtil.isLogin(httpRequest.getSession());
+        return ! LoginManager.isLogin(httpRequest.getSession());
     }
 
     private boolean isNeedLoginUri(String uri) {

@@ -42,11 +42,15 @@
           <form id="addKnowledgeForm" role="form" data-toggle="validator">
             <div class="form-group">
               <label for="add-chinese">中文</label>
-              <input type="text" class="form-control" id="add-chinese" required>
+              <input type="text" class="form-control" id="add-chinese" maxlength="200" required>
             </div>
             <div class="form-group">
               <label for="add-english">英文翻译</label>
-              <input type="text" class="form-control" id="add-english" required>
+              <input type="text" class="form-control" id="add-english" maxlength="200" required>
+            </div>
+            <div class="form-group">
+              <label for="add-knowledge">知识点</label>
+              <textarea rows="3" class="form-control" id="add-knowledge"></textarea>
             </div>
             <div class="form-group">
               <label for="knowledge-type">资源类型</label>
@@ -56,6 +60,7 @@
                 <option value="0">单词</option>
               </select>
             </div>
+            <input class="sr-only" type="submit" id="realSubmitSaveKnowledge">
           </form>
         </div>
         <div class="modal-footer">
@@ -75,7 +80,7 @@
           <h4 class="modal-title">修改资源</h4>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="updateKnowledgeForm">
             <p class="sr-only" id="id"></p>
             <div class="form-group">
               <label for="update-chinese">中文</label>
@@ -85,6 +90,11 @@
               <label for="update-english">英文翻译</label>
               <input type="text" class="form-control" id="update-english">
             </div>
+            <div class="form-group">
+              <label for="update-knowledge">知识点</label>
+              <textarea rows="3" class="form-control" id="update-knowledge"></textarea>
+            </div>
+            <input class="sr-only" type="submit" id="realSubmitUpdateKnowledge">
           </form>
         </div>
         <div class="modal-footer">

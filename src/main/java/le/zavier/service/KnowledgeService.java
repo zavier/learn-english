@@ -37,6 +37,8 @@ public class KnowledgeService {
      */
     public Knowledge addKnowledge(Knowledge knowledge) {
         logger.info("执行添加资源：{}", knowledge.toString());
+        ifUserHasCreated(knowledge);
+
         int resultCount = knowledgeMapper.insert(knowledge);
         if (resultCount > 0) {
             logger.info("添加资源{}成功", knowledge.toString());
@@ -44,6 +46,15 @@ public class KnowledgeService {
         }
         logger.error("添加资源{}失败", knowledge.toString());
         throw new CheckException("插入knowledge失败，" + knowledge.toString());
+    }
+
+    private void ifUserHasCreated(Knowledge knowledge) {
+        int count = knowledgeMapper.countByChineseAndCreateUser(knowledge.getCreateUserId(), knowledge.getChinese());
+        if (count > 0) {
+            logger.info("{} 已存在，不能添加", knowledge.getChinese());
+            throw new CheckException("此条资源已存在，不能再次添加，如有需要可以修改对应条");
+        }
+        logger.info("{} 不存在，可以添加", knowledge.getChinese());
     }
 
     /**

@@ -2,7 +2,7 @@ package le.zavier.controller.user;
 
 import javax.servlet.http.HttpSession;
 import le.zavier.service.UserService;
-import le.zavier.util.LoginUtil;
+import le.zavier.commons.LoginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping(value = "/login")
     public String login(HttpSession session) {
-        if (LoginUtil.isLogin(session)) {
+        if (LoginManager.isLogin(session)) {
             return "/knowledge/list";
         }
         return "/user/login";
