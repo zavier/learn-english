@@ -17,10 +17,9 @@ $(document).ready(function() {
             title: '英文',
             align: 'center',
         }, {
-            field: 'type',
-            title: '资源类型',
+            field: 'knowledge',
+            title: '知识点',
             align: 'center',
-            formatter: getKnowledgeTypeName,
         }, {
             field: 'id',
             title: '操作',
@@ -29,7 +28,7 @@ $(document).ready(function() {
             width: '20%',
         }],
 
-        url: '/knowledge/list',
+        url: '/knowledge/list-user-create',
         method: 'post',
         cache: false,
         uniqueId: 'id',

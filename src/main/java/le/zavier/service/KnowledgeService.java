@@ -7,6 +7,7 @@ import com.google.common.cache.CacheBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import le.zavier.commons.PageSearchParam;
 import le.zavier.dao.KnowledgeMapper;
 import le.zavier.exception.CheckException;
 import le.zavier.pojo.Knowledge;
@@ -171,14 +172,25 @@ public class KnowledgeService {
 
     /**
      * 分页获取资源列表
-     * @param pageNum 页码（从1开始）
-     * @param pageSize 每页条数
-     * @param searchText 查询内容
+     * @param pageSearchParam 分页查询参数类，页数从1开始计数
      * @return
      */
-    public PageInfo<Knowledge> listKnowledge(int pageNum, int pageSize, String searchText) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Knowledge> knowledges = knowledgeMapper.selectList(searchText);
+    public PageInfo<Knowledge> listKnowledge(PageSearchParam pageSearchParam) {
+        PageHelper.startPage(pageSearchParam.getPageNum(), pageSearchParam.getPageSize());
+        List<Knowledge> knowledges = knowledgeMapper.selectList(pageSearchParam.getSearchText());
+        PageInfo<Knowledge> pageResult = new PageInfo<>(knowledges);
+        return pageResult;
+    }
+
+    /**
+     * 分页获取用户创建的资源列表
+     * @param userId 用户id
+     * @param pageSearchParam 分页查询参数类
+     * @return
+     */
+    public PageInfo<Knowledge> listUserCreateKnowledge(Long userId, PageSearchParam pageSearchParam) {
+        PageHelper.startPage(pageSearchParam.getPageNum(), pageSearchParam.getPageSize());
+        List<Knowledge> knowledges = knowledgeMapper.selectUserCreateList(userId, pageSearchParam.getSearchText());
         PageInfo<Knowledge> pageResult = new PageInfo<>(knowledges);
         return pageResult;
     }

@@ -21,6 +21,9 @@ public interface KnowledgeMapper {
 
     List<Knowledge> selectList(@Param("searchText") String searchText);
 
+    List<Knowledge> selectUserCreateList(@Param("userId") Long userId,
+        @Param("searchText") String searchText);
+
     int updateByPrimaryKeySelective(Knowledge record);
 
     int updateByPrimaryKey(Knowledge record);

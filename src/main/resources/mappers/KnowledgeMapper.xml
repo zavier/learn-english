@@ -51,6 +51,17 @@
     order by id asc
   </select>
 
+  <select id="selectUserCreateList" resultMap="KnowledgeResultMap">
+    select
+    <include refid="Knowledge_Column_List"/>
+    from t_knowledge
+    where create_user_id = #{userId}
+    <if test="searchText != null and searchText != ''">
+      and chinese like concat('%', #{searchText}, '%')
+    </if>
+    order by id asc
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_knowledge
     where id = #{id,jdbcType=BIGINT}

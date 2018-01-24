@@ -3,6 +3,7 @@ package le.zavier.controller.knowledge;
 import com.github.pagehelper.PageInfo;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import le.zavier.commons.PageSearchParam;
 import le.zavier.commons.ResultBean;
 import le.zavier.pojo.Knowledge;
 import le.zavier.pojo.User;
@@ -41,7 +42,27 @@ public class KnowledgeRestController {
         @RequestParam(value = "size", defaultValue = "10") int size,
         @RequestParam(value = "search", required = false) String searchText) {
         logger.info("查看的关键词为:{}", searchText);
-        PageInfo<Knowledge> pageResult = knowledgeService.listKnowledge(page, size, searchText);
+        PageSearchParam pageSearchParam = new PageSearchParam(page, size, searchText);
+        PageInfo<Knowledge> pageResult = knowledgeService.listKnowledge(pageSearchParam);
+        return ResultBean.createBySuccess(pageResult);
+    }
+
+    /**
+     * 获取用户创建的资源列表
+     * @param page 页数（从1开始）
+     * @param size 每页条数
+     * @param searchText 查询内容
+     * @return
+     */
+    @PostMapping(value = "/list-user-create", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultBean listUserCreate(HttpSession session,
+        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "size", defaultValue = "10") int size,
+        @RequestParam(value = "search", required = false) String searchText) {
+        logger.info("查看的关键词为:{}", searchText);
+        PageSearchParam pageSearchParam = new PageSearchParam(page, size, searchText);
+        User user = LoginUtil.getLoginUser(session);
+        PageInfo<Knowledge> pageResult = knowledgeService.listUserCreateKnowledge(user.getId(), pageSearchParam);
         return ResultBean.createBySuccess(pageResult);
     }
 
