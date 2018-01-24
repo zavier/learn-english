@@ -45,7 +45,7 @@ public class UserService {
         checkLoginUserInfo(user);
         User resultUser = userMapper.selectByAccountOrEmailAndPassword(user);
         if (resultUser != null) {
-            logger.info("{}登录成功", user.toString());
+            logger.info("{}登录成功", resultUser.toString());
             return resultUser;
         } else {
             logger.info("{}登录失败，用户不存在或密码错误", user.toString());

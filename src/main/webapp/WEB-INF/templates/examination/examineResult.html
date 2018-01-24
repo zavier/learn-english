@@ -9,6 +9,12 @@
 
   <!-- Bootstrap -->
   <link th:href="@{/static/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <style>
+    .red {
+      color:red;
+    }
+  </style>
 </head>
 <body>
   <nav th:insert="~{header :: #header}"></nav>
@@ -25,7 +31,7 @@
       <tr th:each="result, iterStat : ${examineResults}">
         <td th:text="${iterStat.index + 1}"></td>
         <td th:text="${result.correctChinese}"></td>
-        <td th:text="${result.userAnswerEnglish}"></td>
+        <td th:class="${result.correct} ? black : red" th:text="${result.userAnswerEnglish}"></td>
         <td th:text="${result.correctEnglish}"></td>
       </tr>
     </table>

@@ -45,6 +45,8 @@ public class ExaminationController {
             examineResultVo.setCorrectChinese(correctAnswer.getChinese());
             examineResultVo.setUserAnswerEnglish(knowledge.getEnglish());
             examineResultVo.setCorrectEnglish(correctAnswer.getEnglish());
+            // 设置结果
+            examineResultVo.setAnswerResult();
             return examineResultVo;
         }).collect(Collectors.toList());
         model.addAttribute("examineResults", examineResults);
