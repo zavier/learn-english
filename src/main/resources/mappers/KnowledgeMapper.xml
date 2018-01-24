@@ -31,10 +31,11 @@
     where id = #{id, jdbcType=BIGINT}
   </select>
 
-  <select id="selectRandom" parameterType="int" resultMap="KnowledgeResultMap">
+  <select id="selectRandom" resultMap="KnowledgeResultMap">
     select
     <include refid="Knowledge_Column_List" />
     from t_knowledge
+    where create_user_id = #{createUserId}
     order by rand()
     limit #{size}
   </select>

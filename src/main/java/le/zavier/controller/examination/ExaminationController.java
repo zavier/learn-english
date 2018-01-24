@@ -25,8 +25,10 @@ public class ExaminationController {
     private KnowledgeService knowledgeService;
 
     @GetMapping("/index")
-    public String index(@RequestParam(value = "size", defaultValue = "10") Integer size, Model model) {
-        List<Knowledge> randomData = knowledgeService.getRandomData(size);
+    public String index(HttpSession session,
+        @RequestParam(value = "size", defaultValue = "10") Integer size, Model model) {
+        Long createUserId = LoginManager.getLoginUser(session).getId();
+        List<Knowledge> randomData = knowledgeService.getRandomData(createUserId, size);
         model.addAttribute("knowledges", randomData);
         return "/examination/index";
     }

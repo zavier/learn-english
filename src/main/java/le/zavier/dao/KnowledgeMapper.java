@@ -17,7 +17,7 @@ public interface KnowledgeMapper {
 
     int countByPrimaryKey(Long id);
 
-    List<Knowledge> selectRandom(int size);
+    List<Knowledge> selectRandom(@Param("createUserId") long createUserId, @Param("size") int size);
 
     List<Knowledge> selectList(@Param("searchText") String searchText);
 

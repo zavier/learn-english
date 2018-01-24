@@ -138,11 +138,12 @@ public class KnowledgeService {
 
     /**
      * 随机获取 size 条资源
+     * @param createUserId 创建资源的用户id
      * @param size
      * @return
      */
-    public List<Knowledge> getRandomData(int size) {
-        List<Knowledge> knowledges = knowledgeMapper.selectRandom(size);
+    public List<Knowledge> getRandomData(long createUserId, int size) {
+        List<Knowledge> knowledges = knowledgeMapper.selectRandom(createUserId, size);
         knowledgeListToCache(knowledges);
         return knowledges;
     }
