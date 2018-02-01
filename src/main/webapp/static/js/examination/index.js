@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    activeNav('exiam');
+})
+
 function checkData() {
     var data = getData();
     checkCompleteInfoData(data);

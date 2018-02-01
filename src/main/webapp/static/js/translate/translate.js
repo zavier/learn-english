@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    activeNav('translate');
     $("#translate").on('click', translate);
 })
 

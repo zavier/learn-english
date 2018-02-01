@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    activeNav('my-resource');
+
     $('#knowledgeData').bootstrapTable({
         columns: [{
             checkbox: true,

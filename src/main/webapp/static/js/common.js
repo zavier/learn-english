@@ -57,3 +57,14 @@ function logout() {
         location.href = '/user/login';
     })
 }
+
+function activeNav(id) {
+    clearNavActiveClass();
+    $("#" + id).addClass('active');
+}
+
+function clearNavActiveClass() {
+    $("#my-resource").removeClass('active');
+    $("#exiam").removeClass('active');
+    $("#translate").removeClass('active');
+}
