@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    activeNav('exiam');
+    activeNav('exiam-nav');
 })
 
 function checkData() {

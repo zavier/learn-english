@@ -64,7 +64,7 @@ function activeNav(id) {
 }
 
 function clearNavActiveClass() {
-    $("#my-resource").removeClass('active');
-    $("#exiam").removeClass('active');
-    $("#translate").removeClass('active');
+    $("#my-resource-nav").removeClass('active');
+    $("#exiam-nav").removeClass('active');
+    $("#translate-nav").removeClass('active');
 }

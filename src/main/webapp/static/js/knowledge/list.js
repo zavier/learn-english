@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    activeNav('my-resource');
+    activeNav('my-resource-nav');
 
     $('#knowledgeData').bootstrapTable({
         columns: [{
