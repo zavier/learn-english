@@ -92,7 +92,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.40</version>
+      <version>8.0.11</version>
     </dependency>
     <dependency>
       <groupId>com.alibaba</groupId>
@@ -157,7 +157,7 @@
         <version>2.2</version>
         <configuration>
           <path>/</path>
-          <port>80</port>
+          <port>8099</port>
         </configuration>
       </plugin>
       <plugin>
