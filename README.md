@@ -1,6 +1,13 @@
 # learn-english
 
-![](http://img.shields.io/travis/zavier/learn-english.svg)
+<p align="center">
+  <a href="https://github.com/zavier/learn-english">
+    <img src="http://img.shields.io/travis/zavier/learn-english.svg" alt="build">
+  </a>
+  <a href="https://github.com/zavier/learn-english">
+    <img src="https://img.shields.io/badge/language-java-orange.svg" alt="java">
+  </a>
+</p>
 
 一个用来学习英语的应用
 
