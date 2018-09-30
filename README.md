@@ -1,4 +1,7 @@
 # learn-english
+
+![](http://img.shields.io/travis/zavier/learn-english.svg)
+
 一个用来学习英语的应用
 
 界面部分截图：
