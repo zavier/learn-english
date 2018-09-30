@@ -1,6 +1,6 @@
 # learn-english
 
-<p align="center">
+<p>
   <a href="https://github.com/zavier/learn-english">
     <img src="http://img.shields.io/travis/zavier/learn-english.svg" alt="build">
   </a>
