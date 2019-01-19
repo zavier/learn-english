@@ -1,14 +1,12 @@
 package le.zavier.commons;
 
 import java.io.Serializable;
-import lombok.Data;
 
 /**
  * Controller 层统一返回实体类
  * @param <T> 返回内容的数据类型
  *
  */
-@Data
 public class ResultBean<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -53,6 +51,30 @@ public class ResultBean<T> implements Serializable {
         super();
         this.msg = e.toString();
         this.code = ResultCode.ERROR;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 
     public static <T> ResultBean<T> createBySuccess() {

@@ -1,13 +1,9 @@
 package le.zavier.vo;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Data
-@NoArgsConstructor
 public class ExamineResultVo {
     private static final Logger logger = LoggerFactory.getLogger(ExamineResultVo.class);
 
@@ -17,6 +13,54 @@ public class ExamineResultVo {
     private String userAnswerChinese;
     private String userAnswerEnglish;
     private Boolean correct;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCorrectChinese() {
+        return correctChinese;
+    }
+
+    public void setCorrectChinese(String correctChinese) {
+        this.correctChinese = correctChinese;
+    }
+
+    public String getCorrectEnglish() {
+        return correctEnglish;
+    }
+
+    public void setCorrectEnglish(String correctEnglish) {
+        this.correctEnglish = correctEnglish;
+    }
+
+    public String getUserAnswerChinese() {
+        return userAnswerChinese;
+    }
+
+    public void setUserAnswerChinese(String userAnswerChinese) {
+        this.userAnswerChinese = userAnswerChinese;
+    }
+
+    public String getUserAnswerEnglish() {
+        return userAnswerEnglish;
+    }
+
+    public void setUserAnswerEnglish(String userAnswerEnglish) {
+        this.userAnswerEnglish = userAnswerEnglish;
+    }
+
+    public Boolean getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(Boolean correct) {
+        this.correct = correct;
+    }
 
     public void setAnswerResult() {
         if (StringUtils.isNotBlank(userAnswerEnglish) && StringUtils.isNotBlank(correctEnglish)) {

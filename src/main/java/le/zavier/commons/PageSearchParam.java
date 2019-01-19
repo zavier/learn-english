@@ -1,15 +1,8 @@
 package le.zavier.commons;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * 分页查询参数实体类
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PageSearchParam {
 
     /**
@@ -24,4 +17,34 @@ public class PageSearchParam {
      * 查询内容
      */
     private String searchText;
+
+    public PageSearchParam(Integer pageNum, Integer pageSize, String searchText) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.searchText = searchText;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
 }
