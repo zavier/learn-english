@@ -15,6 +15,9 @@ public class LoginLog {
 
     private Date updateTime;
 
+    public LoginLog() {
+    }
+
     public LoginLog(Long userId, String loginIp, Date loginTime) {
         this.userId = userId;
         this.loginIp = loginIp;

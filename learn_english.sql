@@ -14,7 +14,7 @@ CREATE TABLE `t_knowledge`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) COMMENT '知识点表';
 
 -- ----------------------------
 -- Table structure for t_login_log
@@ -28,7 +28,7 @@ CREATE TABLE `t_login_log`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) COMMENT '登陆日志表';
 
 -- ----------------------------
 -- Table structure for t_user
@@ -44,4 +44,4 @@ CREATE TABLE `t_user`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) COMMENT '用户表';
