@@ -24,12 +24,12 @@
 
 界面部分截图：
 
-![](http://images.cnblogs.com/cnblogs_com/zawier/998251/o_%e4%b8%8b%e8%bd%bd.png)
+![](https://raw.githubusercontent.com/zavier/learn-english/master/doc/1.png)
 
 ---
 
-![](http://images.cnblogs.com/cnblogs_com/zawier/998251/o_%e4%b8%8b%e8%bd%bd1.png)
+![](https://raw.githubusercontent.com/zavier/learn-english/master/doc/2.png)
 
 ---
 
-![](http://images.cnblogs.com/cnblogs_com/zawier/998251/o_%e4%b8%8b%e8%bd%bd2.png)
+![](https://raw.githubusercontent.com/zavier/learn-english/master/doc/3.png)
