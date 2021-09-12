@@ -17,11 +17,6 @@
 - 翻译功能
 
 
-应用 demo : [http://182.61.133.92:8080](http://182.61.133.92:8080)
-
-账号： test  密码：test1234  或者自己注册
-
-
 界面部分截图：
 
 ![](https://raw.githubusercontent.com/zavier/learn-english/master/doc/1.png)
