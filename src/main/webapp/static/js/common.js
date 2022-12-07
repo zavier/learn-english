@@ -53,8 +53,8 @@ function alertErrorMsg(msg) {
 }
 
 function logout() {
-    $.get('/user/logout', function(data) {
-        location.href = '/user/login';
+    $.get('/learn-english/user/logout', function(data) {
+        location.href = '/learn-english/user/login';
     })
 }
 

@@ -8,7 +8,7 @@ function translate() {
     if (!src) {
         alert('中文不能为空');
     }
-    $.post('/translate/api', { 'query': src }, function (res) {
+    $.post('/learn-english/translate/api', { 'query': src }, function (res) {
         console.log(JSON.stringify(res));
         var dest = res.data.dst;
         $("#dst").val(dest);

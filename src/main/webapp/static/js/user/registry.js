@@ -7,7 +7,7 @@ $("#registryForm").validate({
     },
     submitHandler: function () {
         // 校验通过
-        var ajaxParam = getAjaxJsonParamObject('/user/register', 'POST', getData());
+        var ajaxParam = getAjaxJsonParamObject('/learn-english/user/register', 'POST', getData());
         ajaxParam.success = function (data) {
             console.log(JSON.stringify(data));
             if (isAjaxSuccess(data)) {

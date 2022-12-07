@@ -30,7 +30,7 @@ $(document).ready(function () {
             width: '20%',
         }],
 
-        url: '/knowledge/list-user-create',
+        url: '/learn-english/knowledge/list-user-create',
         method: 'post',
         cache: false,
         uniqueId: 'id',
@@ -106,7 +106,7 @@ $("#updateKnowledgeForm").validate({
             english: $("#update-english").val(),
             knowledge: $("#update-knowledge").val(),
         };
-        var url = '/knowledge/update-knowledge';
+        var url = '/learn-english/knowledge/update-knowledge';
         var params = getAjaxJsonParamObject(url, 'POST', data);
         params.success = function (res) {
             if (isAjaxSuccess(res)) {
@@ -131,7 +131,7 @@ function deleteKnowledgeConfirm(id) {
         content: '删除后无法恢复，是否确定删除？',
         buttons: {
             确定: function () {
-                $.get('/knowledge/delete-knowledge/' + id, function (data) {
+                $.get('/learn-english/knowledge/delete-knowledge/' + id, function (data) {
                     if (isAjaxSuccess(data)) {
                         alertSuccessMsg('删除成功');
                         $('#knowledgeData').bootstrapTable('refresh');
@@ -170,7 +170,7 @@ $("#addKnowledgeForm").validate({
             knowledge: $("#add-knowledge").val(),
         };
 
-        var url = '/knowledge/save-knowledge';
+        var url = '/learn-english/knowledge/save-knowledge';
         var params = getAjaxJsonParamObject(url, 'POST', data);
         params.success = function (data) {
             if (isAjaxSuccess(data)) {

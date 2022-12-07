@@ -28,9 +28,9 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li id="my-resource-nav"><a th:href="@{/knowledge/list}">我的资源</a></li>
-          <li id="exiam-nav"><a th:href="@{/examination/index}">测试题</a></li>
-          <li id="translate-nav"><a th:href="@{/translate/translate}">翻译</a></li>
+          <li id="my-resource-nav"><a th:href="@{/learn-english/knowledge/list}">我的资源</a></li>
+          <li id="exiam-nav"><a th:href="@{/learn-english/examination/index}">测试题</a></li>
+          <li id="translate-nav"><a th:href="@{/learn-english/translate/translate}">翻译</a></li>
           <!--<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -52,7 +52,7 @@
         </form>-->
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a th:text="${session.CURRENT_USER.account}" href="/user/login">登录</a></li>
+          <li><a th:text="${session.CURRENT_USER.account}" href="/learn-english/user/login">登录</a></li>
           <li><a href="javascript:void(0);" onclick="logout()">退出</a></li>
           <!--<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

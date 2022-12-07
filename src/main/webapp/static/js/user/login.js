@@ -10,7 +10,7 @@ $("#loginForm").validate({
         var accountOrEmail = $("#accountOrEmail").val();
         var password = $("#password").val();
         var param = generateLoginParam(accountOrEmail, password);
-        var url = "/user/login";
+        var url = "/learn-english/user/login";
         var ajaxParam = getAjaxJsonParamObject(url, 'POST', param);
         ajaxParam.success = function (data) {
             console.log(JSON.stringify(data));

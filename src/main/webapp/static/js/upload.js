@@ -1,7 +1,7 @@
 
 
 $.ajax({
-    url: '/knowledge/upload-csvfile',
+    url: '/learn-english/knowledge/upload-csvfile',
     type: 'POST',
     cache: false,
     data: new FormData($('#csvFile')[0]),

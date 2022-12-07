@@ -22,7 +22,7 @@ function getData() {
 function submitResult() {
     var data = getData();
     $.ajax({
-        url: '/examination/upload-answer',
+        url: '/learn-english/examination/upload-answer',
         type: 'POST',
         dataType: 'json',
         data: JSON.stringify(data),
