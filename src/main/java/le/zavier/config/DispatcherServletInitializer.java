@@ -43,7 +43,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter("UTF-8",
             true);
         LoginFilter loginFilter = new LoginFilter();
-        loginFilter.setNoNeedLoginUrlStarts(Arrays.asList("/learn-english/user", "/static"));
+        loginFilter.setNoNeedLoginUrlStarts(Arrays.asList("/learn-english/user", "/learn-english/static"));
         return new Filter[]{characterEncodingFilter, loginFilter};
     }
 }
