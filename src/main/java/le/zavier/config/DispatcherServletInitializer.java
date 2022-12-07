@@ -1,10 +1,11 @@
 package le.zavier.config;
 
-import java.util.Arrays;
-import javax.servlet.Filter;
 import le.zavier.filter.LoginFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
+import java.util.Arrays;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -42,7 +43,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter("UTF-8",
             true);
         LoginFilter loginFilter = new LoginFilter();
-        loginFilter.setNoNeedLoginUrlStarts(Arrays.asList("/user", "/static"));
+        loginFilter.setNoNeedLoginUrlStarts(Arrays.asList("/learn-english/user", "/static"));
         return new Filter[]{characterEncodingFilter, loginFilter};
     }
 }
