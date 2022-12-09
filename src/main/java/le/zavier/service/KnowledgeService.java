@@ -1,21 +1,24 @@
 package le.zavier.service;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 import le.zavier.commons.PageSearchParam;
 import le.zavier.dao.KnowledgeMapper;
 import le.zavier.exception.CheckException;
 import le.zavier.pojo.Knowledge;
 import le.zavier.util.CsvContent;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class KnowledgeService {
@@ -110,6 +113,10 @@ public class KnowledgeService {
      */
     public int saveCsvContentTypeKnowledge(CsvContent csvContent) {
         List<Knowledge> knowledgeList = csvContentToKnowledge(csvContent);
+        if (CollectionUtils.isEmpty(knowledgeList)) {
+            logger.info("saveCsvContentTypeKnowledge data empty:{}", JSON.toJSONString(csvContent));
+            return 0;
+        }
         int i = knowledgeMapper.insertBatch(knowledgeList);
         return i;
     }

@@ -1,20 +1,12 @@
 package le.zavier.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import le.zavier.exception.CheckException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.io.*;
+import java.util.List;
 
 @Component
 public class CsvUtil {
@@ -45,7 +37,6 @@ public class CsvUtil {
 
     public static CsvContent readCsvFile(InputStream inputStream) {
         CsvContent csvContent = new CsvContent();
-        List<List<String>> lists = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             String line = null;
             while ((line = reader.readLine()) != null) {

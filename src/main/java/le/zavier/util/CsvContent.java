@@ -14,7 +14,7 @@ public class CsvContent implements Iterable<String[]>{
     }
 
     public int getTotalRows() {
-        return currentRows;
+        return currentRows + 1;
     }
 
     public int getMaxColumn() {
