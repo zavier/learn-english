@@ -9,6 +9,7 @@ import le.zavier.commons.PageSearchParam;
 import le.zavier.dao.KnowledgeMapper;
 import le.zavier.exception.CheckException;
 import le.zavier.pojo.Knowledge;
+import le.zavier.pojo.User;
 import le.zavier.util.CsvContent;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -111,8 +112,8 @@ public class KnowledgeService {
      * @param csvContent
      * @return
      */
-    public int saveCsvContentTypeKnowledge(CsvContent csvContent) {
-        List<Knowledge> knowledgeList = csvContentToKnowledge(csvContent);
+    public int saveCsvContentTypeKnowledge(CsvContent csvContent, User user) {
+        List<Knowledge> knowledgeList = csvContentToKnowledge(csvContent, user);
         if (CollectionUtils.isEmpty(knowledgeList)) {
             logger.info("saveCsvContentTypeKnowledge data empty:{}", JSON.toJSONString(csvContent));
             return 0;
@@ -126,7 +127,7 @@ public class KnowledgeService {
      * @param content
      * @return
      */
-    private List<Knowledge> csvContentToKnowledge(CsvContent content) {
+    private List<Knowledge> csvContentToKnowledge(CsvContent content, User user) {
         List<Knowledge> knowledgeList = new ArrayList<>(content.getTotalRows());
         for (int i = 0; i < content.getTotalRows(); i++) {
             String[] rows = content.getRows(i);
@@ -138,6 +139,8 @@ public class KnowledgeService {
             knowledge.setChinese(rows[0]);
             knowledge.setEnglish(rows[1]);
             knowledge.setType(Short.parseShort(rows[2]));
+            knowledge.setCreateUserId(user.getId());
+            knowledge.setUpdateUserId(user.getId());
             knowledgeList.add(knowledge);
         }
         return knowledgeList;

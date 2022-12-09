@@ -1,6 +1,7 @@
 package le.zavier.controller.knowledge;
 
-import java.io.IOException;
+import le.zavier.commons.LoginManager;
+import le.zavier.pojo.User;
 import le.zavier.service.KnowledgeService;
 import le.zavier.util.CsvContent;
 import le.zavier.util.CsvUtil;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/knowledge")
@@ -36,7 +40,7 @@ public class KnowledgeController {
 
 
     @PostMapping(value = "/upload-csvfile")
-    public String saveKnowledgeFromFile(@RequestParam("csvFile") MultipartFile file, Model model)
+    public String saveKnowledgeFromFile(@RequestParam("csvFile") MultipartFile file, Model model, HttpSession session)
         throws IOException {
         boolean isCsvFile = CsvUtil.isCsvFile(file.getOriginalFilename());
         if (!isCsvFile) {
@@ -44,8 +48,9 @@ public class KnowledgeController {
             return "/error";
         }
 
+        User user = LoginManager.getLoginUser(session);
         CsvContent csvContent = CsvUtil.readCsvFile(file.getInputStream());
-        int i = knowledgeService.saveCsvContentTypeKnowledge(csvContent);
+        int i = knowledgeService.saveCsvContentTypeKnowledge(csvContent, user);
         model.addAttribute("success", true);
         return "/upload";
     }
