@@ -15,7 +15,7 @@ $("#loginForm").validate({
         ajaxParam.success = function (data) {
             console.log(JSON.stringify(data));
             if (isAjaxSuccess(data)) {
-                location.href = '/knowledge/list';
+                location.href = '/learn-english/knowledge/list';
             } else {
                 logAndAlertErrorMsg(data, '登录失败: ' + data.msg);
             }
