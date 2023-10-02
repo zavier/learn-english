@@ -1,22 +1,18 @@
 package le.zavier.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import le.zavier.commons.LoginManager;
+import le.zavier.commons.ResultBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import le.zavier.commons.ResultBean;
-import le.zavier.commons.LoginManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 登录过滤器
@@ -48,7 +44,7 @@ public class LoginFilter implements Filter {
             if (isAjaxRequest(httpRequest)) {
                 returnNoLoginInfo(httpResponse);
             } else {
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login");
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/le/user/login");
             }
         } else {
             chain.doFilter(request, response);
