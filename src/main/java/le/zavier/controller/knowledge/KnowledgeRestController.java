@@ -1,28 +1,23 @@
 package le.zavier.controller.knowledge;
 
 import com.github.pagehelper.PageInfo;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import le.zavier.commons.LoginManager;
 import le.zavier.commons.PageSearchParam;
 import le.zavier.commons.ResultBean;
 import le.zavier.pojo.Knowledge;
 import le.zavier.pojo.User;
 import le.zavier.service.KnowledgeService;
-import le.zavier.commons.LoginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/knowledge")
+@RequestMapping("/le/knowledge")
 public class KnowledgeRestController {
 
     private static final Logger logger = LoggerFactory.getLogger(KnowledgeRestController.class);

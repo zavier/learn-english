@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/knowledge")
+@RequestMapping("/le/knowledge")
 public class KnowledgeController {
     private static final Logger logger = LoggerFactory.getLogger(KnowledgeController.class);
 

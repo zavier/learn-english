@@ -1,24 +1,21 @@
 package le.zavier.controller.user;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import le.zavier.commons.LoginManager;
 import le.zavier.commons.ResultBean;
 import le.zavier.pojo.User;
 import le.zavier.service.UserService;
-import le.zavier.commons.LoginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/le/user")
 public class UserRestController {
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 

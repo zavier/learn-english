@@ -1,11 +1,9 @@
 package le.zavier.controller.examination;
 
-import java.util.List;
-import javax.servlet.http.HttpSession;
+import le.zavier.commons.LoginManager;
 import le.zavier.commons.ResultBean;
 import le.zavier.pojo.Knowledge;
 import le.zavier.service.KnowledgeService;
-import le.zavier.commons.LoginManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
 @RestController
-@RequestMapping("/examination")
+@RequestMapping("/le/examination")
 public class ExaminationRestController {
     private static final Logger logger = LoggerFactory.getLogger(ExaminationRestController.class);
 

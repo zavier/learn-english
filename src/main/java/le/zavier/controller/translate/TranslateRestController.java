@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/translate")
+@RequestMapping("/le/translate")
 public class TranslateRestController {
     private static final Logger logger = LoggerFactory.getLogger(TranslateRestController.class);
 
