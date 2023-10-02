@@ -11,7 +11,7 @@ $("#registryForm").validate({
         ajaxParam.success = function (data) {
             console.log(JSON.stringify(data));
             if (isAjaxSuccess(data)) {
-                location.href = '/user/login';
+                location.href = '/learn-english/user/login';
             } else {
                 logAndAlertErrorMsg(data, '注册失败: ' + data.msg);
             }

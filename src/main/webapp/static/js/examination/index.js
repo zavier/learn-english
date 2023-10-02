@@ -29,7 +29,7 @@ function submitResult() {
         headers: {'Content-Type': 'application/json'},
         success: function(res) {
             if (res.code == 0) {
-                window.location.href = '/examination/show-result';
+                window.location.href = '/learn-english/examination/show-result';
             } else {
                 alert('提交失败\n' + res.msg);
             }
