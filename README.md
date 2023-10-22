@@ -1,5 +1,7 @@
 # learn-english
 
+> 背景：在学习英语时背了单词，感觉看到文章还是读不懂，所以想要通过学习句子来提升英语能力，故开发此工具（项目写的时间比较早，使用的技术有点老旧了...）
+
 <p>
   <a href="https://github.com/zavier/learn-english">
     <img src="http://img.shields.io/travis/zavier/learn-english.svg" alt="build">
