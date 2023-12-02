@@ -22,6 +22,14 @@ springBoot的实现参考[spring-boot分支](https://github.com/zavier/learn-eng
 - 翻译功能
 
 
+TODO
+ - [ ] 增加全局句子库/词库功能，大家可以共同贡献
+ - [ ] 可以从句子库中，选择一些自己有兴趣的加入到自己的个人句子库中
+ - [ ] 可以从个人句子库中，随机选择句子查看
+ - [ ] 可以对个人句子库中的句子进行权重调整，如果比较熟练了，可以减少出现频率
+
+
+
 界面部分截图：
 
 ![](https://raw.githubusercontent.com/zavier/learn-english/master/doc/1.png)
