@@ -13,7 +13,8 @@ CREATE TABLE `t_knowledge`  (
   `update_user_id` bigint(20) NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_chinese`(`chinese`)
 ) COMMENT '知识点表';
 
 -- ----------------------------
@@ -27,7 +28,7 @@ CREATE TABLE `t_login_log`  (
   `login_time` datetime(0) NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`)
 ) COMMENT '登陆日志表';
 
 -- ----------------------------
@@ -43,8 +44,10 @@ CREATE TABLE `t_user`  (
   `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`)
 ) COMMENT '用户表';
+
+-- DELETE t1 FROM t_knowledge t1 JOIN t_knowledge t2 ON t1.chinese = t2.chinese AND t1.id > t2.id;
 
 
 INSERT INTO `t_knowledge` (`chinese`, `english`, `type`, `knowledge`, `tag`, `create_user_id`, `update_user_id`, `create_time`, `update_time`) VALUES
