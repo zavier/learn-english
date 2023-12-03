@@ -35,7 +35,7 @@ $(document).ready(function () {
         cache: false,
         uniqueId: 'id',
         pagination: true,
-        pageNumber: 1,
+        pageNumber: localStorage.getItem('page') || 1,
         pageSize: 10,
         queryParams: queryParams,
         sidePagination: "server",
@@ -58,6 +58,7 @@ function queryParams(params) {
         size: params.limit,
         search: params.search,
     };
+    localStorage.setItem('page', param.page);
     return param;
 }
 
